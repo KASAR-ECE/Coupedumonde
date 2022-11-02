@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 02 nov. 2022 à 21:18
+-- Généré le : mer. 02 nov. 2022 à 21:30
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -111,6 +111,20 @@ INSERT INTO `games` (`Match Number`, `Round Number`, `Date`, `Location`, `Home T
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `predict`
+--
+
+DROP TABLE IF EXISTS `predict`;
+CREATE TABLE IF NOT EXISTS `predict` (
+  `Username` varchar(50) NOT NULL,
+  `Game_ID` int(10) NOT NULL,
+  `ScoreH` int(5) NOT NULL,
+  `ScoreA` int(5) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `score`
 --
 
@@ -134,7 +148,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `Username` varchar(50) NOT NULL,
   `Mail` varchar(50) NOT NULL,
   `MDP` varchar(50) NOT NULL,
-  `Score` int(5) NOT NULL
+  `Score` int(5) NOT NULL,
+  PRIMARY KEY (`Username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 COMMIT;
 
