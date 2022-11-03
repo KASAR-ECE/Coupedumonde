@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 02 nov. 2022 à 21:52
+-- Généré le : jeu. 03 nov. 2022 à 15:17
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `countries`;
 CREATE TABLE IF NOT EXISTS `countries` (
-  `Country` varchar(50) NOT NULL,
-  `Flag` varchar(300) NOT NULL
+  `country` varchar(50) NOT NULL,
+  `flag` varchar(300) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -41,20 +41,20 @@ CREATE TABLE IF NOT EXISTS `countries` (
 
 DROP TABLE IF EXISTS `games`;
 CREATE TABLE IF NOT EXISTS `games` (
-  `Match Number` int(10) DEFAULT NULL,
-  `Round Number` varchar(50) DEFAULT NULL,
-  `Date` datetime(6) DEFAULT NULL,
-  `Location` varchar(50) DEFAULT NULL,
-  `Home Team` varchar(50) DEFAULT NULL,
-  `Away Team` varchar(50) DEFAULT NULL,
-  `Group` varchar(300) DEFAULT NULL
+  `match_number` int(10) DEFAULT NULL,
+  `round_number` varchar(50) DEFAULT NULL,
+  `date` datetime(6) DEFAULT NULL,
+  `location` varchar(50) DEFAULT NULL,
+  `home_team` varchar(50) DEFAULT NULL,
+  `away_team` varchar(50) DEFAULT NULL,
+  `group` varchar(300) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `games`
 --
 
-INSERT INTO `games` (`Match Number`, `Round Number`, `Date`, `Location`, `Home Team`, `Away Team`, `Group`) VALUES
+INSERT INTO `games` (`match_number`, `round_number`, `date`, `location`, `home_team`, `away_team`, `group`) VALUES
 (1, '1', '2022-11-20 16:00:00.000000', 'Al Bayt Stadium', 'Qatar', 'Ecuador', 'Group A'),
 (3, '1', '2022-11-21 13:00:00.000000', 'Khalifa International Stadium', 'England', 'Iran', 'Group B'),
 (2, '1', '2022-11-21 16:00:00.000000', 'Al Thumama Stadium', 'Senegal', 'Netherlands', 'Group A'),
@@ -128,10 +128,10 @@ INSERT INTO `games` (`Match Number`, `Round Number`, `Date`, `Location`, `Home T
 
 DROP TABLE IF EXISTS `predict`;
 CREATE TABLE IF NOT EXISTS `predict` (
-  `Username` varchar(50) NOT NULL,
-  `Game_ID` int(10) NOT NULL,
-  `ScoreH` int(5) NOT NULL,
-  `ScoreA` int(5) NOT NULL
+  `username` varchar(50) NOT NULL,
+  `game_ID` int(10) NOT NULL,
+  `score_home` int(5) NOT NULL,
+  `score_away` int(5) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -142,11 +142,11 @@ CREATE TABLE IF NOT EXISTS `predict` (
 
 DROP TABLE IF EXISTS `score`;
 CREATE TABLE IF NOT EXISTS `score` (
-  `ScoreH` int(5) NOT NULL,
-  `ScoreA` int(5) NOT NULL,
-  `Penalties` tinyint(1) NOT NULL DEFAULT '0',
-  `Overtime` tinyint(1) NOT NULL DEFAULT '0',
-  `ID` int(5) NOT NULL
+  `score_home` int(5) NOT NULL,
+  `Score_away` int(5) NOT NULL,
+  `penalties` tinyint(1) NOT NULL DEFAULT '0',
+  `overtime` tinyint(1) NOT NULL DEFAULT '0',
+  `id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -157,10 +157,10 @@ CREATE TABLE IF NOT EXISTS `score` (
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `Username` varchar(50) NOT NULL,
-  `Mail` varchar(50) NOT NULL,
-  `MDP` varchar(50) NOT NULL,
-  `Score` int(5) NOT NULL
+  `username` varchar(50) NOT NULL,
+  `mail` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `score` int(5) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 COMMIT;
 
