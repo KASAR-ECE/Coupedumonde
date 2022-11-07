@@ -17,7 +17,8 @@ app.use(express.json());
 
 
 
-const userregister = require('./routes/userregister');
+const signup = require('./routes/signup');
+const signin = require('./routes/signin');
 
 
 
@@ -25,7 +26,7 @@ const userregister = require('./routes/userregister');
 
 
 
-
-app.use('/api',userregister);
+app.use('/signup',signup);
+app.use('/signin',signin);
 
 module.exports = app;

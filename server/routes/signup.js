@@ -2,6 +2,9 @@
 
 var express = require('express'),
 router = express.Router();
+const jwt = require('jsonwebtoken');
+require('crypto').randomBytes(64).toString('hex')
+
 
 var connection = require('../db')
 
@@ -68,7 +71,8 @@ router.post('/', async (req, res) => {
         var sql = 'insert into user(username, mail, mdp) values (?,?,?);';
         connection.query(sql, [username, mail, password],  (err, result, fields) => {
         if(err) throw err;
-        res.send("created")
+        const token = generateAccessToken({ username: username });
+        res.json(token);
       
         
       
@@ -94,6 +98,9 @@ router.post('/', async (req, res) => {
 
 
 
+function generateAccessToken(username) {
+  return jwt.sign(username, process.env.JWT_SECRET, { expiresIn: '10d' });
+}
 
 
 
