@@ -1,17 +1,11 @@
-const ButtonQuickVote = ({
-  equipeName = "default",
-  quickScoreVote = false,
-  state,
-  setQuickVote = () => {},
-  setScoreVote = () => {},
-}) => {
-  const quickVoteHandler = () => {
-    setQuickVote();
-  };
+const ButtonQuickVote = ({ equipeName = "default", quickScoreVote = false, state, setQuickVote = () => { }, setScoreVote = () => { } }) => {
+    const quickVoteHandler = () => {
+        setQuickVote();
+    }
 
-  const scoreVoteHandler = (e) => {
-    setScoreVote(e.target.value);
-  };
+    const scoreVoteHandler = e => {
+        setScoreVote(e.target.value)
+    }
 
     let color = "bg-kasar3";
     if (state.draw || state.draw === 'true') { color = 'bg-draw text-white' }
@@ -36,4 +30,4 @@ const ButtonQuickVote = ({
     )
 }
 
-export default ButtonQuickVote;
+export default ButtonQuickVote

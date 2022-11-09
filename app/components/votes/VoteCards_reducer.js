@@ -1,66 +1,93 @@
-import { useState } from "react";
+export const initialVotes = [
+    {
+        id: 1,
+        quickScore: true,
+        score: -1,
+        win: false,
+        draw: false,
+    },
+    {
+        id: 2,
+        quickScore: true,
+        score: -1,
+        win: false,
+        draw: false,
+    }
+];
 
-export default function Navbar({ fixed }) {
-  const [navbarOpen, setNavbarOpen] = useState(false);
-  return (
-    <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-kasar1 mb-3">
-      <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-        <div className="w-full relative flex justify-between sm:w-auto sm:static sm:block sm:justify-start">
-          <a
-            className="text-xl font-bold leading-relaxed inline-block mr-4 py-1 whitespace-nowrap uppercase text-kasar3"
-            href="/"
-          >
-            Home
-          </a>
-          <div className="sm:hidden">
-            <button
-              className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800"
-              type="button"
-              onClick={() => setNavbarOpen(!navbarOpen)}
-            >
-              {navbarOpen ?
-                <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
-                :
-                <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
-              }
-            </button>
-          </div>
-        </div>
-        <div
-          className={
-            "sm:flex flex-grow items-center" +
-            (navbarOpen ? " flex" : " hidden")
-          }
-          id="example-navbar-danger"
-        >
-          <ul className="flex flex-col sm:flex-row list-none sm:ml-auto">
-            <li className="nav-item">
-              <div
-                className="px-3 py-2 flex items-center  uppercase font-bold leading-snug text-kasar3 hover:opacity-75"
-                href="#pablo"
-              >
-                <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-80"><a href="/vote">Vote</a></i>
-              </div>
-            </li>
-            <li className="nav-item">
-              <div
-                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-kasar3 hover:opacity-80"
-                href="#pablo"
-              >
-                <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-80"><a href="/">Login</a></i>
-              </div>
-            </li>
-            <li className="nav-item">
-              <div
-                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-kasar3 hover:opacity-75"
-                href="#pablo"
-              >
-                <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-75"><a href="/">About us</a></i>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  );
-}
+export const reducerVotes = (state, action) => {
+    switch (action.type) {
+        case "VOTE QUICK": {
+            if (action.id != null) {
+                let newState = state.map((vote) => { //update the state for the winner team
+                    if (vote.id === action.id) {
+                        return { ...vote, quickScore: true, win: !vote.win, score: 1000 };
+                    } else {
+                        if (vote.quickScore) { return vote; } //quickVote already set
+                        else { return { ...vote, quickScore: true, win: false, score: -1 } } // reintialized to quickScore setup
+                    }
+                });
+                if (newState[0].win && newState[1].win) {
+                    newState = newState.map((vote) => { //update the state for the winner team
+                        return { ...vote, draw: true };
+                    });
+                }
+                else {
+                    newState = newState.map((vote) => { //check if both team win => it's a draw
+                        return { ...vote, draw: false };
+                    });
+                }
+                return newState;
+            } else return state;
+        }
+        case "VOTE QUICK NUL": {
+            return state.map((vote) => { //update the state for the winner team
+                return { ...vote, draw: true, score: 1000 };
+            });;
+        }
+        case "UNVOTE QUICK NUL": {
+            return state.map((vote) => { //update the state for the winner team
+                return { ...vote, draw: false, score: 0, win: false };
+            });;
+        }
+        case "VOTE SCORE": {
+            if (action.id != null) {
+                let newState = state.map((vote) => { //update the score 
+                    if (vote.id === action.id) {
+                        return { ...vote, quickScore: false, score: action.score, win: 'true' };
+                    } else {
+                        if (vote.quickScore) { //initialize the other one to score with 0
+                            return { ...vote, quickScore: false, win: false, score: 0 };
+                        } else {
+                            return vote
+                        }
+                    }
+                });
+                if (newState[0].score == newState[1].score) {
+                    newState = newState.map((vote) => { //update the state for the winner team
+                        return { ...vote, draw: true };
+                    });
+                } else {
+                    newState[0].draw = false;
+                    newState[1].draw = false;
+                    if (newState[0].score > newState[1].score) { //team 1 should win
+                        newState[0].win = true;
+                        newState[1].win = false;
+                    }
+                    else if (newState[0].score < newState[1].score) { //team 2 should win
+                        newState[0].win = false;
+                        newState[1].win = true;
+                    } else { //default
+                        newState[0].win = false;
+                        newState[1].win = false;
+                    }
+                }
+                return newState;
+            } else return state;
+        }
+        default: {
+            // console.log("Erreur dispatch for part summary");
+            return state;
+        }
+    }
+};

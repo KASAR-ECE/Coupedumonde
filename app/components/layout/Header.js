@@ -18,27 +18,11 @@ export default function Navbar({ fixed }) {
               type="button"
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
-              {navbarOpen ? (
-                <svg
-                  className="w-6 h-6"
-                  aria-hidden="true"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
-                </svg>
-              ) : (
-                <svg
-                  className="w-6 h-6"
-                  aria-hidden="true"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path>
-                </svg>
-              )}
+              {navbarOpen ?
+                <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
+                :
+                <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+              }
             </button>
           </div>
         </div>
@@ -55,9 +39,7 @@ export default function Navbar({ fixed }) {
                 className="px-3 py-2 flex items-center  uppercase font-bold leading-snug text-kasar3 hover:opacity-75"
                 href="#pablo"
               >
-                <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-80">
-                  <a href="/vote">Vote</a>
-                </i>
+                <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-80"><a href="/vote">Vote</a></i>
               </div>
             </li>
             <li className="nav-item">
