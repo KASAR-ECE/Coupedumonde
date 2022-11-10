@@ -3,6 +3,7 @@ const db = [
     {
         equipe1: "France",
         equipe2: "Allemagne",
+        date: ""
     },
     {
         equipe1: "Bresil",
@@ -27,10 +28,18 @@ const votePage = () => {
                         <div className="max-w-md">
                             <h5 className="mb-2 text-2xl font-bold tracking-tight text-white ">{match.equipe1} - VS - {match.equipe2}</h5>
                             <div className="flex justify-between ">
-                                <button onClick={() => { voteHandler(match.equipe1) }}
-                                    className="text-kasar1 font-bold bg-white border border-kasar2 rounded-lg p-2 hover:bg-kasar3">{match.equipe1}</button>
-                                <button onClick={() => { voteHandler(match.equipe2) }}
-                                    className="text-kasar1 font-bold bg-white border border-kasar2 rounded-lg p-2 hover:bg-kasar3">{match.equipe2}</button>
+                                <div>
+                                    <button onClick={() => { voteHandler(match.equipe1) }}
+                                        className="text-kasar1 font-bold bg-white border border-kasar2 rounded-lg p-2
+                                        hover:bg-kasar3">{match.equipe1}</button>
+                                    <input type="number" />
+                                </div>
+                                <div>
+                                    <button onClick={() => { voteHandler(match.equipe2) }}
+                                        className="text-kasar1 font-bold bg-white border border-kasar2 rounded-lg p-2
+                                    hover:bg-kasar3">{match.equipe2}</button>
+                                    <input type="number" />
+                                </div>
                             </div>
                         </div>
                     </div>
