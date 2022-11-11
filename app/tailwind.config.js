@@ -19,6 +19,8 @@ module.exports = {
         kasar3: "#FFD0E6",
         kasar4: "#FF9CB6",
         kasar5: "#F08488",
+        win: "#7CFC00",
+        draw: "#0084FA",
       },
     },
   },
