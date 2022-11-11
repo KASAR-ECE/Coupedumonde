@@ -124,7 +124,7 @@ CREATE TABLE `score` (
 CREATE TABLE `user` (
   `username` varchar(50) NOT NULL,
   `mail` varchar(50) NOT NULL,
-  `mdp` varchar(50) NOT NULL,
+  `mdp` varchar(200) NOT NULL,
   `score` int(5) DEFAULT 10,
   `mail_confirmed` boolean DEFAULT false
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;

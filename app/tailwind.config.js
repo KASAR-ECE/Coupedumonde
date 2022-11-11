@@ -9,11 +9,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        customBlue: '#58A4B0',
-        customBlue2: '#A9BCD0',
-        customGrey: '#D8DBE2',
-        customGrey2: '#373F51',
-        customBlack: '#1B1B1E',
+        customBlue: "#58A4B0",
+        customBlue2: "#A9BCD0",
+        customGrey: "#D8DBE2",
+        customGrey2: "#373F51",
+        customBlack: "#1B1B1E",
         kasar1: "#7D4FFE",
         kasar2: "#C49FFF",
         kasar3: "#FFD0E6",
@@ -25,4 +25,4 @@ module.exports = {
     },
   },
   plugins: [],
-}
+};
