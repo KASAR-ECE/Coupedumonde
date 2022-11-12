@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import VoteCards from "../../components/votes/VoteCards";
+import { useEffect, useState } from "react"
+import VoteCards from "../../components/votes/VoteCards"
 
 const username = "userTest";
 
@@ -31,8 +31,8 @@ const votePage = () => {
             }
         };
 
-    dataFetch();
-  }, []);
+        dataFetch();
+    }, []);
 
     return (
         <div>
