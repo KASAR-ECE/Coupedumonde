@@ -8,6 +8,13 @@ export default function Home() {
       <Head>
         <title>Kasar</title>
       </Head>
+      <main>
+        <div className='flex h-full'>
+          <div className='bg-kasar2 m-auto'>
+            <h1 className="text-center text-6xl">Welcome on our website !</h1>
+          </div>
+        </div>
+      </main>
     </div>
   )
 }
