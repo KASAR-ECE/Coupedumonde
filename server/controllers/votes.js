@@ -44,8 +44,10 @@ module.exports = {
         });
     },
     createVote: (voteData, callback) => {
-        if (!voteData.username || !voteData.game_ID || !voteData.score_home || !voteData.score_away)
-            return callback(new Error("Wrong vote parameters"), null)
+        if (!voteData.username || !voteData.game_ID ||
+            voteData.score_home === null || voteData.score_home === '' ||
+            voteData.score_away === null || voteData.score_away === '')
+            return callback(new Error("Wrong vote parameters : " + voteData.username + "||" + voteData.game_ID + "||" + voteData.score_home + "||" + voteData.score_away), null)
 
         const voteObj = {
             username: voteData.username,
