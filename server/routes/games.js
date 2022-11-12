@@ -39,7 +39,7 @@ gamesRouter
                 msg: res
             }
             resp.send(respObj)
-            console.log(respObj)
+            // console.log(respObj)
         })
     })
 

@@ -18,9 +18,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `countries`
+--
+
+DROP TABLE IF EXISTS `countries`;
+CREATE TABLE IF NOT EXISTS `countries` (
+  `country` varchar(50) NOT NULL,
+  `flag` varchar(300) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `games`
 --
 
+DROP TABLE IF EXISTS `games`;
 CREATE TABLE `games` (
   `match_id` int(10) NOT NULL,
   `round_number` varchar(50) DEFAULT NULL,
@@ -104,9 +117,26 @@ INSERT INTO `games` (`match_id`, `round_number`, `date`, `location`, `home_team`
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `predict`
+--
+
+DROP TABLE IF EXISTS `predict`;
+CREATE TABLE IF NOT EXISTS `predict` (
+  `predict_ID` INT(10) NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(50) NOT NULL ,
+  `game_ID` INT(5) NOT NULL ,
+  `score_home` INT(5) NOT NULL,
+  `score_away` INT(5) NOT NULL,
+  PRIMARY KEY (`predict_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `score`
 --
 
+DROP TABLE IF EXISTS `score`;
 CREATE TABLE `score` (
   `schoreh` int(5) NOT NULL,
   `scorea` int(5) NOT NULL,
@@ -121,6 +151,7 @@ CREATE TABLE `score` (
 -- Table structure for table `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `username` varchar(50) NOT NULL,
   `mail` varchar(50) NOT NULL,
@@ -163,3 +194,5 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 INSERT INTO `user` (`username`, `mail`, `mdp`, `score`, `mail_confirmed`) VALUES ("userTest", "user.test@edu.ece.fr", "password", 0, TRUE);
+INSERT INTO `predict` ( `predict_ID`, `username`, `game_ID`,  `score_home`,  `score_away`) VALUES ("0", "userTest", "1", "4", "3");
+INSERT INTO `predict` ( `predict_ID`, `username`, `game_ID`,  `score_home`,  `score_away`) VALUES ("1", "userTest", "2", "1", "2");
