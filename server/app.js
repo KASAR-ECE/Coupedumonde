@@ -18,8 +18,15 @@ const signin = require("./routes/signin");
 
 const games = require("./routes/games");
 
-app.use("/signup", signup);
-app.use("/signin", signin);
-app.use("/games", games);
+const signup = require('./routes/signup');
+const signin = require('./routes/signin');
+
+const games = require('./routes/games');
+const votes = require('./routes/votes');
+
+app.use('/signup', signup);
+app.use('/signin', signin);
+app.use('/games', games);
+app.use('/votes', votes);
 
 module.exports = app;
