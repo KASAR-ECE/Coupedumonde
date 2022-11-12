@@ -57,21 +57,30 @@ const VoteCards = ({ match, id }) => {
     let color = "bg-kasar3";
     if (votes[0].draw || votes[0].draw === 'true') { color = 'bg-draw text-white' }
     else { color = 'bg-white' }
+    const matchDate = new Date(match.date);
+    const monthNumber = matchDate.getMonth();
+    const dayNumber = matchDate.getDate();
+    const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const jourSemaine = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+    const dayString = jourSemaine[matchDate.getDay()];
+    const hour = matchDate.getHours();
+    const minutes = (matchDate.getMinutes() < 10 ? '0' : '') + matchDate.getMinutes();
 
 
     return (
         <div key={id} className="p-6 rounded-lg border border-gray-200 shadow-md bg-kasar1">
             <div className="max-w-md text-center items-center">
-                <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">{match.equipe1}</h5>
+                <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">{dayString + " " + dayNumber + "/" + monthNumber + " à " + hour + ":" + minutes}</h5>
+                <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">{match.home_team}</h5>
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]"> - VS - </h5>
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">{match.equipe2}</h5>
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">{match.away_team}</h5>
 
                 <ControlButton>
                     {showQuickVote ? hideQuickVoteButton : showQuickVoteButton}
                 </ControlButton>
                 <div className="flex justify-between my-auto">
                     <ButtonQuickVote
-                        equipeName={match.equipe1}
+                        equipeName={match.home_team}
                         quickScoreVote={showQuickVote}
                         state={votes[0]}
                         setQuickVote={() => voteTeamHandler(1)}
@@ -82,7 +91,7 @@ const VoteCards = ({ match, id }) => {
                         Match Nul
                     </button>}
                     <ButtonQuickVote
-                        equipeName={match.equipe2}
+                        equipeName={match.away_team}
                         quickScoreVote={showQuickVote}
                         state={votes[1]}
                         setQuickVote={() => voteTeamHandler(2)}

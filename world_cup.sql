@@ -1,4 +1,5 @@
-
+CREATE DATABASE IF NOT EXISTS world_cup;
+use world_cup;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -160,3 +161,5 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+INSERT INTO `user` (`username`, `mail`, `mdp`, `score`, `mail_confirmed`) VALUES ("userTest", "user.test@edu.ece.fr", "password", 0, TRUE);
