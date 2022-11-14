@@ -47,7 +47,9 @@ export default function Navbar({ fixed }) {
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-kasar3 hover:opacity-80"
                 href="#pablo"
               >
-                <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-80"><a href="/">Login</a></i>
+                <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-80">
+                  <a href="/login">Login</a>
+                </i>
               </div>
             </li>
             <li className="nav-item">
@@ -55,7 +57,9 @@ export default function Navbar({ fixed }) {
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-kasar3 hover:opacity-75"
                 href="#pablo"
               >
-                <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-75"><a href="/">About us</a></i>
+                <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-75">
+                  <a href="/">About us</a>
+                </i>
               </div>
             </li>
           </ul>
