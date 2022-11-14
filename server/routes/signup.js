@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
       error: true,
       message: "No username",
     };
-    res.status(500).json(data);
+    res.status(403).json(data);
     return;
   }
   if (req.body.password) password = req.body.password;
@@ -27,7 +27,7 @@ router.post("/", async (req, res) => {
       error: true,
       message: "No password",
     };
-    res.status(500).json(data);
+    res.status(403).json(data);
     return;
   }
   if (req.body.passwordConfirmation) confirmedpassword = req.body.passwordConfirmation;
@@ -35,9 +35,9 @@ router.post("/", async (req, res) => {
     console.log("ERROR : no confirmedpassword");
     data = {
       error: true,
-      message: "Confirmed password different",
+      message: "No confirmed password",
     };
-    res.status(500).json(data);
+    res.status(403).json(data);
     return;
   }
 
@@ -48,10 +48,20 @@ router.post("/", async (req, res) => {
       error: true,
       message: "no mail",
     };
-    res.status(500).json(data);
+    res.status(403).json(data);
     return;
   }
 
+  if (confirmedpassword != password){
+    console.log("ERROR : password differents");
+    data = {
+      error: true,
+      message: "Passwords differents",
+    };
+    res.status(403).json(data);
+    return;
+  }
+ 
   var sql = "select * from user where mail = ?;";
 
   connection.query(sql, [mail], (err, result, fields) => {

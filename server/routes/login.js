@@ -13,16 +13,23 @@ router.post("/", async (req, res) => {
   if (req.body.username) username = req.body.username;
   else {
     console.log("ERROR : no username returned");
-    res.status(500).send("no username");
+    data = {
+      error: true,
+      message: "no username",
+    };
+    res.status(403).json(data);
     return;
   }
   if (req.body.password) password = req.body.password;
   else {
     console.log("ERROR : no password returned");
-    res.status(500).send("no password");
+    data = {
+      error: true,
+      message: "no password",
+    };
+    res.status(403).json(data);
     return;
   }
-
   var sql = "select * from user where username = ? AND mdp = ?;";
 
   connection.query(sql, [username, password], (err, result, fields) => {

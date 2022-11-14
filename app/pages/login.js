@@ -4,6 +4,7 @@ import cookie from 'js-cookie';
 
 const Login = () => {
   const [loginError, setLoginError] = useState('');
+  const [signupValidation, setSignupValidation] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -30,8 +31,11 @@ const Login = () => {
         }
         if (data && data.token) {
           //set cookie
-          cookie.set('token', data.token, {expires: 2});
-          Router.push('/');
+          cookie.set('token', data.token, {expires: 10});
+          setSignupValidation("You are registered, you will be redirected");
+            setTimeout(() => {
+              Router.push('/');
+          }, 2000);
         }
       });
   }
@@ -46,6 +50,7 @@ const Login = () => {
         type="username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
+        required="required"
       />
       <label class="mt-4 block text-gray-700 text-sm font-bold mb-2" for="password">
         Password
@@ -55,8 +60,10 @@ const Login = () => {
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        required="required"
       />
       {loginError && <p style={{color: 'red'}}>{loginError}</p>}
+      {signupValidation && <p style={{color: 'green'}}>{signupValidation}</p>}
       <input type="submit" value="Submit" class="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 text-white font-bold py-2 px-4 rounded focus:outline-none ml-auto mr-auto" />
       
     </form>
