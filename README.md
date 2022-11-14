@@ -11,3 +11,20 @@
 ```bash
 node server/generatesalt.js
 ```
+
+## Docker
+
+Run :
+
+```bash
+docker build -t worldcupimage .
+docker run  \
+-p 80:80 \
+-e MYSQL_HOST= \
+-e MYSQL_USER= \
+-e MYSQL_PASSWORD= \
+-e MYSQL_DATABASE= \
+-e JWT_SECRET= \
+--name worldcup \
+worldcupimage
+```

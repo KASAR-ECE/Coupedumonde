@@ -15,8 +15,15 @@ const Signup = () => {
       console.log("non")
       setSignupError("");
       e.preventDefault();
-
-      fetch('http://localhost:8080/signup', {
+      let url =""
+      if(window.location.hostname=="localhost" ){
+        url="http://localhost:8080"
+        
+      }
+      else{
+        url=window.location.origin +"/api"
+      }
+      fetch(url + '/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

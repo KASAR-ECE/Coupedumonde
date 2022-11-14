@@ -12,8 +12,18 @@ const Login = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    
     //call api
-    fetch('http://localhost:8080/signin', {
+    let url =""
+    console.log(process.env.DOCKER)
+    if(window.location.hostname=="localhost"){
+      url="http://localhost:8080"
+      
+    }
+    else{
+      url=window.location.origin +"/api"
+    }
+    fetch(url+ '/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -11,12 +11,21 @@ const votePage = () => {
 
     useEffect(() => {
         // fetch games data
+        let url =""
+        if(window.location.hostname=="localhost" ){
+            url="http://localhost:8080"
+            
+          }
+
+        else{
+          url=window.location.origin +"/api"
+        }
         const dataFetch = async () => {
             const games = await (
-                await fetch("http://localhost:8080/games/")
+                await fetch(url + "/games/")
             ).json();
             const votes = await (
-                await fetch("http://localhost:8080/votes/" + username)
+                await fetch(url + "/votes/" + username)
             ).json();
             // set state when the data received
             if (games.status === "success") {

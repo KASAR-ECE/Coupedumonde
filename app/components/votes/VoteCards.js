@@ -60,9 +60,18 @@ const VoteCards = ({ match, dataVote }) => {
             score_home: votes[0].score,
             score_away: votes[1].score,
         }
+        let url =""
+        if(window.location.hostname=="localhost" ){
+          url="http://localhost:8080"
+          
+        }
+        else{
+          url=window.location.origin +"/api"
+        }
 
         const saveMsg = await (
-            await fetch('http://localhost:8080/votes/', {
+            
+            await fetch(url +'/votes/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
