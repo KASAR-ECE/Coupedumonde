@@ -15,8 +15,19 @@ const Signup = () => {
       console.log("non")
       setSignupError("");
       e.preventDefault();
-
-      fetch('http://localhost:8080/signup', {
+      let url =""
+      if(!window.location.origin.includes("3000") && window.location.hostname=="localhost"){
+        url="http://localhost/api"
+        console.log("oui")
+      }
+      else if(window.location.hostname=="localhost" && window.location.origin.includes("3000")){
+        url="http://localhost:8080"
+        console.log("oui")
+      }
+      else{
+        url=window.location.origin +"/api"
+      }
+      fetch(url + '/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -116,7 +127,7 @@ const Signup = () => {
 
       
 
-      <input type="submit" value="Submit" className="mb-6 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 text-white font-bold py-2 px-4 rounded focus:outline-none ml-auto mr-auto"/>
+      <input type="submit" value="Submit" className="mb-6 bg-purple-500 hover:bg-purple-600 active:bg-purple-700 focus:outline-none focus:ring focus:ring-purple-300 text-white font-bold py-2 px-4 rounded focus:outline-none ml-auto mr-auto"/>
       {signupError && <p style={{color: 'red'}}>{signupError}</p>}
       {signupValidation && <p style={{color: 'green'}}>{signupValidation}</p>}
     </form>

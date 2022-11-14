@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 require("crypto").randomBytes(64).toString("hex");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
+const fs = require("fs");
 
 var connection = require("../db");
 
@@ -92,8 +93,8 @@ router.post("/", async (req, res) => {
         }
         if (result.length == 0) {
           console.log("checked");
-
-          password = await bcrypt.hash(password, process.env.SALT);
+          const salt = fs.readFileSync("./secret",'utf-8');
+          password = await bcrypt.hash(password, salt);
 
           console.log(password);
 

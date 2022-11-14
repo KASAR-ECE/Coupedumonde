@@ -10,10 +10,26 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleSubmit(e) {
+  function handleSubmit(e,docker) {
     e.preventDefault();
+    
     //call api
-    fetch('http://localhost:8080/signin', {
+    let url =""
+
+  
+
+    if(!window.location.origin.includes("3000") && window.location.hostname=="localhost"){
+      url="http://localhost/api"
+      console.log("oui")
+    }
+    else if(window.location.hostname=="localhost" && window.location.origin.includes("3000")){
+      url="http://localhost:8080"
+      console.log("oui")
+    }
+    else{
+      url=window.location.origin +"/api"
+    }
+    fetch(url+ '/signin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -76,7 +92,7 @@ const Login = () => {
       <div className='flex justify-evenly mt-4'>
 
       
-      <input type="submit" value="Submit" className="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 text-white font-bold py-2 px-4 rounded focus:outline-none " />
+      <input type="submit" value="Submit" className="bg-purple-500 hover:bg-purple-600 active:bg-purple-700 focus:outline-none focus:ring focus:ring-purple-300 text-white font-bold py-2 px-4 rounded focus:outline-none " />
       <p className='mt-auto text-sm mb-auto text-gray-700'><Link href="/signup">No account ?</Link></p>
       </div>
     </form>
