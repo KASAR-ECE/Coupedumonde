@@ -10,6 +10,6 @@ export default function Footer({ fixed }) {
           </div>
         </div>
       </div>
-    </footer >
+    </footer>
   );
 }

@@ -1,5 +1,5 @@
 var express = require("express"),
-router = express.Router();
+  router = express.Router();
 const jwt = require("jsonwebtoken");
 require("crypto").randomBytes(64).toString("hex");
 const bcrypt = require("bcrypt");
@@ -31,7 +31,8 @@ router.post("/", async (req, res) => {
     res.status(403).json(data);
     return;
   }
-  if (req.body.passwordConfirmation) confirmedpassword = req.body.passwordConfirmation;
+  if (req.body.passwordConfirmation)
+    confirmedpassword = req.body.passwordConfirmation;
   else {
     console.log("ERROR : no confirmedpassword");
     data = {
@@ -53,7 +54,7 @@ router.post("/", async (req, res) => {
     return;
   }
 
-  if (confirmedpassword != password){
+  if (confirmedpassword != password) {
     console.log("ERROR : password differents");
     data = {
       error: true,
@@ -62,7 +63,7 @@ router.post("/", async (req, res) => {
     res.status(403).json(data);
     return;
   }
- 
+
   var sql = "select * from user where mail = ?;";
 
   connection.query(sql, [mail], (err, result, fields) => {
@@ -93,7 +94,7 @@ router.post("/", async (req, res) => {
         }
         if (result.length == 0) {
           console.log("checked");
-          const salt = fs.readFileSync("./secret",'utf-8');
+          const salt = fs.readFileSync("./secret", "utf-8");
           password = await bcrypt.hash(password, salt);
 
           console.log(password);
@@ -106,8 +107,7 @@ router.post("/", async (req, res) => {
               if (err) throw err;
               const token = generateAccessToken({ username: username });
 
-
-              res.status(200).json({token});
+              res.status(200).json({ token });
             }
           );
         }

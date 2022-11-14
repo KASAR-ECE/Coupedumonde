@@ -5,7 +5,6 @@ require("crypto").randomBytes(64).toString("hex");
 const bcrypt = require("bcrypt");
 const fs = require("fs");
 
-
 var connection = require("../db");
 
 const auth = require("../middleware/auth");
@@ -34,8 +33,8 @@ router.post("/", async (req, res) => {
     return;
   }
 
-  const salt = fs.readFileSync("./secret",'utf-8');
-  console.log(salt)
+  const salt = fs.readFileSync("./secret", "utf-8");
+  console.log(salt);
   password = await bcrypt.hash(password, salt);
 
   var sql = "select * from user where username=? AND mdp=?;";
@@ -45,7 +44,7 @@ router.post("/", async (req, res) => {
     console.log(result);
     if (result.length == 1) {
       const token = generateAccessToken({ username: username });
-      res.status(200).json({token});
+      res.status(200).json({ token });
     } else {
       data = {
         error: true,
