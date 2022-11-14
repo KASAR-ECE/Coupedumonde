@@ -40,8 +40,8 @@ router.post("/", async (req, res) => {
 
     if (result.length > 0) {
       data = {
-        status: "error",
-        msg: "mail already taken",
+        error: true,
+        message: "mail already taken",
       };
       res.status(403).json(data);
     }
@@ -56,8 +56,8 @@ router.post("/", async (req, res) => {
 
         if (result.length > 0) {
           data = {
-            status: "error",
-            msg: "username already taken",
+            error: true,
+            message: "username already taken",
           };
           res.status(403).json(data);
         }
@@ -76,11 +76,8 @@ router.post("/", async (req, res) => {
               if (err) throw err;
               const token = generateAccessToken({ username: username });
 
-              data = {
-                status: "success",
-                msg: token,
-              };
-              res.json(data);
+
+              res.status(200).json({token});
             }
           );
         }

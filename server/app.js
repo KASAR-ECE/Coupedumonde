@@ -13,8 +13,7 @@ app.use(cors({ origin: "http://localhost:3000" }));
 
 app.use(express.json());
 
-const signup = require("./routes/signup");
-const signin = require("./routes/signin");
+
 
 const games = require("./routes/games");
 

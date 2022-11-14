@@ -32,7 +32,11 @@ router.post("/", async (req, res) => {
       const token = generateAccessToken({ username: username });
       res.status(200).json(token);
     } else {
-      res.status(401).send("Invalid password / username");
+      data = {
+        error: true,
+        message: "invalid username / password",
+      };
+      res.status(403).json(data);
     }
   });
 });

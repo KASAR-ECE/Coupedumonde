@@ -1,59 +1,59 @@
-import cookieCutter from "cookie-cutter";
+import React, {useState} from 'react';
+import Router from 'next/router';
+import cookie from 'js-cookie';
 
-export default function Signup() {
-  // Handles the submit event on form submit.
-  const handleSubmit = async (event) => {
-    // Stop the form from submitting and refreshing the page.
-    event.preventDefault();
+const Login = () => {
+  const [loginError, setLoginError] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-    // Get data from the form.
-    const data = {
-      username: event.target.username.value,
-      password: event.target.password.value,
-    };
-
-    // Send the data to the server in JSON format.
-    const JSONdata = JSON.stringify(data);
-
-    // API endpoint where we send form data.
-    const endpoint = "http://localhost:8080/signin";
-
-    // Form the request for sending data to the server.
-    const options = {
-      // The method is POST because we are sending data.
-      method: "POST",
-      // Tell the server we're sending JSON.
+  function handleSubmit(e) {
+    e.preventDefault();
+    //call api
+    fetch('http://localhost:8080/signin', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-      // Body of the request is the JSON data we created above.
-      body: JSONdata,
-    };
-
-    // Send the form data to our forms API on Vercel and get a response.
-    const response = await fetch(endpoint, options);
-
-    if (response.status == 200) {
-      const result = await response.json();
-
-      cookieCutter.set("login", result.msg);
-      alert(`You are loged in`);
-    } else {
-      const result = await response.json();
-      alert(`${result.msg}`);
-    }
-
-    // Get the response data from server as JSON.
-    // If server returns the name submitted, that means the form works.
-  };
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    })
+      .then((r) => {
+        
+        return r.json();
+      })
+      .then((data) => {
+        if (data && data.error) {
+          setLoginError(data.message);
+        }
+        if (data && data.token) {
+          //set cookie
+          cookie.set('token', data.token, {expires: 2});
+          Router.push('/');
+        }
+      });
+  }
   return (
-    // We pass the event to the handleSubmit() function on submit.
     <form onSubmit={handleSubmit}>
-      <label htmlFor="username">Username</label>
-      <input type="text" id="username" name="username" required />
-      <label htmlFor="password">Password</label>
-      <input type="text" id="password" name="password" required />
-      <button type="submit">Submit</button>
+      <p>Login</p>
+      <input
+        name="username"
+        type="username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        name="password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <input type="submit" value="Submit" />
+      {loginError && <p style={{color: 'red'}}>{loginError}</p>}
     </form>
   );
-}
+};
+
+export default Login;
