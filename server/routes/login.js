@@ -2,6 +2,7 @@ var express = require("express"),
   router = express.Router();
 const jwt = require("jsonwebtoken");
 require("crypto").randomBytes(64).toString("hex");
+const bcrypt = require("bcrypt");
 
 var connection = require("../db");
 
@@ -30,14 +31,15 @@ router.post("/", async (req, res) => {
     res.status(403).json(data);
     return;
   }
-  var sql = "select * from user where username = ? AND mdp = ?;";
+  password = await bcrypt.hash(password, process.env.SALT);
+  var sql = "select * from user where username=? AND mdp=?;";
 
   connection.query(sql, [username, password], (err, result, fields) => {
     if (err) throw err;
     console.log(result);
     if (result.length == 1) {
       const token = generateAccessToken({ username: username });
-      res.status(200).json(token);
+      res.status(200).json({token});
     } else {
       data = {
         error: true,
