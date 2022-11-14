@@ -56,6 +56,7 @@ const Signup = () => {
   }
   return (
     <div className="grid place-items-center">
+      <title>Sign up</title>
     <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
       <p className="block text-gray-700 text-xl font-bold mb-4">Sign Up</p>
       <div className="mb-4">

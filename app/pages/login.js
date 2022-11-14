@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import Router from 'next/router';
 import cookie from 'js-cookie';
+import Head from 'next/head';
+import Link from 'next/link'
 
 const Login = () => {
   const [loginError, setLoginError] = useState('');
@@ -40,7 +42,13 @@ const Login = () => {
       });
   }
   return (
+
     <div class="grid place-items-center">
+      <Head>
+      <link rel="icon" href="/favicon.ico" />
+      <title>Login</title>
+      </Head>
+      
     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
     <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
         Username
@@ -64,8 +72,12 @@ const Login = () => {
       />
       {loginError && <p style={{color: 'red'}}>{loginError}</p>}
       {signupValidation && <p style={{color: 'green'}}>{signupValidation}</p>}
-      <input type="submit" value="Submit" class="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 text-white font-bold py-2 px-4 rounded focus:outline-none ml-auto mr-auto" />
+      <div className='flex justify-evenly mt-4'>
+
       
+      <input type="submit" value="Submit" class="bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 text-white font-bold py-2 px-4 rounded focus:outline-none " />
+      <p className='mt-auto text-sm mb-auto text-gray-700'><Link href="/signup">No account ?</Link></p>
+      </div>
     </form>
     </div>
   );
