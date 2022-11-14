@@ -6,10 +6,10 @@
 
 2. ```JWT_SECRET``` must be a long random string
 
-3. Generate ```SALT``` by executing :
+3. Generate ```server/secret``` by executing :
 
 ```bash
-node server/generatesalt.js
+sh newsalt.sh
 ```
 
 ## Docker
@@ -25,6 +25,7 @@ docker run  \
 -e MYSQL_PASSWORD= \
 -e MYSQL_DATABASE= \
 -e JWT_SECRET= \
+-v $HOME/appdata/coupedumonde:/config
 --name worldcup \
 worldcupimage
 ```

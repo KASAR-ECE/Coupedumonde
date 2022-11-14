@@ -1,10 +1,12 @@
 FROM node:16-alpine as builder
 
 ENV NODE_ENV=production
-
+ENV DOCKER=true
 
 WORKDIR /usr/src/app
 
+RUN mkdir /config
+COPY server/secret /config/
 RUN apk add nginx
 
 COPY app/package*.json ./

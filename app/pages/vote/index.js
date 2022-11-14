@@ -12,14 +12,17 @@ const votePage = () => {
     useEffect(() => {
         // fetch games data
         let url =""
-        if(window.location.hostname=="localhost" ){
-            url="http://localhost:8080"
-            
+        if(!window.location.origin.includes("3000") && window.location.hostname=="localhost"){
+            url="http://localhost/api"
+            console.log("oui")
           }
-
-        else{
-          url=window.location.origin +"/api"
-        }
+          else if(window.location.hostname=="localhost" && window.location.origin.includes("3000")){
+            url="http://localhost:8080"
+            console.log("oui")
+          }
+          else{
+            url=window.location.origin +"/api"
+          }
         const dataFetch = async () => {
             const games = await (
                 await fetch(url + "/games/")
