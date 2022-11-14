@@ -1,5 +1,5 @@
 var express = require("express"),
-  router = express.Router();
+router = express.Router();
 const jwt = require("jsonwebtoken");
 require("crypto").randomBytes(64).toString("hex");
 const bcrypt = require("bcrypt");
@@ -10,26 +10,45 @@ var connection = require("../db");
 const auth = require("../middleware/auth");
 
 router.post("/", async (req, res) => {
-  var mailstate = false;
-  var usernamestate = false;
   let password;
   if (req.body.username) username = req.body.username;
   else {
-    console.log("ERROR : no username returned");
-    res.status(500).send("no username");
+    console.log("ERROR : no username");
+    data = {
+      error: true,
+      message: "No username",
+    };
+    res.status(500).json(data);
     return;
   }
   if (req.body.password) password = req.body.password;
   else {
-    console.log("ERROR : no password returned");
-    res.status(500).send("no password");
+    data = {
+      error: true,
+      message: "No password",
+    };
+    res.status(500).json(data);
+    return;
+  }
+  if (req.body.passwordConfirmation) confirmedpassword = req.body.passwordConfirmation;
+  else {
+    console.log("ERROR : no confirmedpassword");
+    data = {
+      error: true,
+      message: "Confirmed password different",
+    };
+    res.status(500).json(data);
     return;
   }
 
   if (req.body.mail) mail = req.body.mail;
   else {
-    console.log("ERROR : no mail returned");
-    res.status(500).send("no mail");
+    console.log("ERROR : no mail");
+    data = {
+      error: true,
+      message: "no mail",
+    };
+    res.status(500).json(data);
     return;
   }
 

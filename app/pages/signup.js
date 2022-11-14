@@ -4,79 +4,127 @@ import cookie from 'js-cookie';
 
 const Signup = () => {
   const [signupError, setSignupError] = useState('');
+  const [signupValidation, setSignupValidation] = useState('');
   const [mail, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
   function handleSubmit(e) {
-    e.preventDefault();
-    fetch('http://localhost:8080/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        mail,
-        password,
-        username,
-      }),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data && data.error) {
-          setSignupError(data.message);
-        }
-        if (data && data.token) {
-          //set cookie
-          cookie.set('token', data.token, {expires: 2});
-          Router.push('/');
-        }
-      });
+    if(passwordConfirmation == password && mail!="" && username!="" && passwordConfirmation!="" && password!=""){
+      console.log("non")
+      setSignupError("");
+      e.preventDefault();
+
+      fetch('http://localhost:8080/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          mail,
+          password,
+          username,
+          passwordConfirmation,
+        }),
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          if (data && data.error) {
+            setSignupError(data.message);
+            console.log("error")
+          }
+          if (data && data.token) {
+            
+            //set cookie
+            cookie.set('token', data.token, {expires: 2});
+            setSignupValidation("You are registered, you will be redirected");
+            setTimeout(() => {
+              Router.push('/');
+          }, 2000);
+          
+          }
+        });
+    }
+    else{
+      e.preventDefault();
+      setSignupError("Passwords are differents");
+
+    }
+
+
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <p>Sign Up</p>
-      <label htmlFor="email">
-        email
-        <input
-          value={mail}
-          onChange={(e) => setEmail(e.target.value)}
-          name="email"
-          type="email"
-        />
+    <div className="grid place-items-center">
+    <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <p className="block text-gray-700 text-xl font-bold mb-4">Sign Up</p>
+      <div className="mb-4">
+      <label className="block text-gray-700 text-sm font-bold mb-2" >
+        Username
       </label>
-
-      <br />
-
-      <label for="password">
-        password
-        <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          name="password"
-          type="password"
-        />
-      </label>
-
-      <br />
-
-      <label for="username">
-      username
-        <input
+        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           name="username"
           type="username"
+          required="required"
         />
+      </div>
+      <div className="mb-4">
+      <label className="block text-gray-700 text-sm font-bold mb-2" >
+        Email
+      </label>
+        <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username"
+          value={mail}
+          onChange={(e) => setEmail(e.target.value)}
+          name="email"
+          type="email"
+          required="required"
+        />
+      </div>
+      
+
+  
+
+      <div className="mb-2">
+      <label className="block text-gray-700 text-sm font-bold mb-2" >
+        Password
       </label>
 
-      <br />
+        <input className="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          name="password"
+          type="password"
+          required="required"
+        />
+      </div>
+      <div className="mb-4">
+      <label className="block text-gray-700 text-sm font-bold mb-2" >
+        Confirm your Password
+      </label>
 
-      <input type="submit" value="Submit" />
+        <input className="shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+          value={passwordConfirmation}
+          onChange={(e) => setPasswordConfirmation(e.target.value)}
+          name="password_confirmation"
+          type="password"
+          required="required"
+        />
+      </div>
+
+      
+
+      <input type="submit" value="Submit" className="mb-6 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300 text-white font-bold py-2 px-4 rounded focus:outline-none ml-auto mr-auto"/>
       {signupError && <p style={{color: 'red'}}>{signupError}</p>}
+      {signupValidation && <p style={{color: 'green'}}>{signupValidation}</p>}
     </form>
+    </div>
+  
+
   );
 };
+
+
 
 export default Signup;
