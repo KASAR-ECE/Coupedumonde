@@ -77,12 +77,12 @@ router.post("/", async (req, res) => {
       res.status(403).json(data);
     }
     if (result.length == 0) {
-      console.log("checked");
+
 
       var sql = "select * from user where username = ?;";
 
       connection.query(sql, [username], async (err, result, fields) => {
-        console.log(result);
+
         if (err) throw err;
 
         if (result.length > 0) {
@@ -93,11 +93,10 @@ router.post("/", async (req, res) => {
           res.status(403).json(data);
         }
         if (result.length == 0) {
-          console.log("checked");
+
           const salt = fs.readFileSync("./secret", "utf-8");
           password = await bcrypt.hash(password, salt);
 
-          console.log(password);
 
           var sql = "insert into user(username, mail, mdp) values (?,?,?);";
           connection.query(

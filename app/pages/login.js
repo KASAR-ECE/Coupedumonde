@@ -60,7 +60,7 @@ const Login = () => {
       });
   }
   return (
-    <div className="grid place-items-center">
+    <div className="grid place-items-center mt-24">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <title>Login</title>
@@ -70,6 +70,7 @@ const Login = () => {
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
         onSubmit={handleSubmit}
       >
+        <p className="block text-gray-700 text-xl font-bold mb-4">Login</p>
         <label className="block text-gray-700 text-sm font-bold mb-2">
           Username
         </label>

@@ -34,14 +34,12 @@ router.post("/", async (req, res) => {
   }
 
   const salt = fs.readFileSync("./secret", "utf-8");
-  console.log(salt);
   password = await bcrypt.hash(password, salt);
 
   var sql = "select * from user where username=? AND mdp=?;";
 
   connection.query(sql, [username, password], (err, result, fields) => {
     if (err) throw err;
-    console.log(result);
     if (result.length == 1) {
       const token = generateAccessToken({ username: username });
       res.status(200).json({ token });
