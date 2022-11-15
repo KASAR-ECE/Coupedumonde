@@ -25,7 +25,7 @@ docker run  \
 -e MYSQL_PASSWORD= \
 -e MYSQL_DATABASE= \
 -e JWT_SECRET= \
--v $HOME/appdata/coupedumonde:/config
+-v $HOME/appdata/coupedumonde:/config \
 --name worldcup \
 worldcupimage
 ```
