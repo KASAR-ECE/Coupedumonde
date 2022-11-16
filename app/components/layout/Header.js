@@ -1,7 +1,15 @@
 import { useState } from "react";
+import UserContextProvider from "../../context/UserContext";
+import { useContext } from "react";
 
-export default function Navbar({ fixed }) {
+export default function Navbar({ token }) {
   const [navbarOpen, setNavbarOpen] = useState(false);
+  const { user, signOut } = useContext(UserContextProvider);
+  var phrase = "";
+  if (user != null) {
+    phrase = "Welcome, " + user;
+  }
+
   return (
     <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-kasar1 mb-3">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
@@ -12,6 +20,9 @@ export default function Navbar({ fixed }) {
           >
             Home
           </a>
+          <p className="text-kasar3 leading-snug ml-10 inline-block mr-4 py-1 whitespace-nowrap">
+            {phrase}
+          </p>
           <div className="sm:hidden">
             <button
               className="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800"
@@ -66,7 +77,9 @@ export default function Navbar({ fixed }) {
                 href="#pablo"
               >
                 <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-80">
-                  <a href="/login">Login</a>
+                  <a href={user != null ? "/logout" : "/login"}>
+                    {user != null ? "Logout" : "Login"}
+                  </a>
                 </i>
               </div>
             </li>
