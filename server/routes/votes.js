@@ -63,7 +63,7 @@ votesRouter
     });
   })
   .post("/", (req, resp) => {
-    votesController.createVote(req.body, (err, res) => {
+    votesController.createVote(req, (err, res) => {
       let respObj;
       if (err) {
         respObj = {

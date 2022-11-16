@@ -9,7 +9,7 @@ require("dotenv").config({ path: path.resolve(__dirname + "/../.env") });
 const app = express();
 
 //Allow next js app running on localhost 3000 to get acces to the API
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true, origin: true }));
 
 app.use(express.json());
 

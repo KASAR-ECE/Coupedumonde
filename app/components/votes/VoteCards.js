@@ -95,6 +95,8 @@ const VoteCards = ({ match, dataVote }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(voteObj),
+        withCredntials: true,
+        credentials: "include",
       })
     ).json();
 

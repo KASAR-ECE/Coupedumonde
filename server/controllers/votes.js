@@ -1,4 +1,5 @@
 var connection = require("../db");
+const { parseCookies } = require("../middleware/parseCookies");
 
 module.exports = {
   getAll: (callback) => {
@@ -50,7 +51,18 @@ module.exports = {
       }
     });
   },
-  createVote: (voteData, callback) => {
+  createVote: (req, callback) => {
+    var user;
+    voteData = req.body;
+    const token = parseCookies(req);
+
+    if (isEmpty(token)) {
+      user = voteData.username;
+    } else {
+      user = parseJwt(token.token);
+      user = user.username;
+    }
+
     if (
       !voteData.username ||
       !voteData.game_ID ||
@@ -74,7 +86,7 @@ module.exports = {
       );
 
     const voteObj = {
-      username: voteData.username,
+      username: user,
       game_ID: voteData.game_ID,
       score_home: voteData.score_home,
       score_away: voteData.score_away,
@@ -131,3 +143,11 @@ module.exports = {
     // http://localhost:3000/votes
   },
 };
+
+function parseJwt(token) {
+  return JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
+}
+
+function isEmpty(object) {
+  return Object.keys(object).length === 0;
+}

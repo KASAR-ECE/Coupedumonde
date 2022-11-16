@@ -5,6 +5,7 @@ const username = "userTest";
 import jwt_decode from "jwt-decode";
 import UserContextProvider from "../../context/UserContext";
 import { useContext } from "react";
+import Head from "next/head";
 
 export default function votePage({ token }) {
   const [dataGames, setDataGames] = useState(null);
@@ -35,8 +36,18 @@ export default function votePage({ token }) {
       url = window.location.origin + "/api";
     }
     const dataFetch = async () => {
-      const games = await (await fetch(url + "/games/")).json();
-      const votes = await (await fetch(url + "/votes/" + username)).json();
+      const games = await (
+        await fetch(url + "/games/", {
+          withCredntials: true,
+          credentials: "include",
+        })
+      ).json();
+      const votes = await (
+        await fetch(url + "/votes/" + username, {
+          withCredntials: true,
+          credentials: "include",
+        })
+      ).json();
       // set state when the data received
       if (games.status === "success") {
         setDataGames(games.msg);
@@ -57,6 +68,9 @@ export default function votePage({ token }) {
 
   return (
     <div>
+      <Head>
+        <title>Vote</title>
+      </Head>
       {dataGames ? (
         dataGames.map((match, index) => {
           return (
