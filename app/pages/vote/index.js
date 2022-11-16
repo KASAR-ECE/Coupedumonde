@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
 import VoteCards from "../../components/votes/VoteCards";
-
+import cookie from "cookie";
 const username = "userTest";
+import jwt_decode from "jwt-decode";
+import UserContextProvider from "../../context/UserContext";
+import { useContext } from "react";
 
-const votePage = () => {
+export default function votePage({ token }) {
   const [dataGames, setDataGames] = useState(null);
   const [dataGamesError, setDataGamesError] = useState(null);
   const [dataVotes, setDataVotes] = useState(null);
   const [dataVotesError, setDataVotesError] = useState(null);
-
+  if (typeof token !== "undefined") {
+    var decode = jwt_decode(token);
+    const { user, signIn, signOut } = useContext(UserContextProvider);
+    signIn(decode.username);
+  }
   useEffect(() => {
     // fetch games data
     let url = "";
@@ -71,6 +78,12 @@ const votePage = () => {
       ) : null}
     </div>
   );
-};
+}
 
-export default votePage;
+votePage.getInitialProps = ({ req, res }) => {
+  const data = cookie.parse(req ? req.headers.cookie || "" : document.cookie);
+
+  return {
+    token: data.token,
+  };
+};

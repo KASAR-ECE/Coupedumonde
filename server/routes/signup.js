@@ -77,12 +77,9 @@ router.post("/", async (req, res) => {
       res.status(403).json(data);
     }
     if (result.length == 0) {
-
-
       var sql = "select * from user where username = ?;";
 
       connection.query(sql, [username], async (err, result, fields) => {
-
         if (err) throw err;
 
         if (result.length > 0) {
@@ -93,10 +90,8 @@ router.post("/", async (req, res) => {
           res.status(403).json(data);
         }
         if (result.length == 0) {
-
           const salt = fs.readFileSync("./secret", "utf-8");
           password = await bcrypt.hash(password, salt);
-
 
           var sql = "insert into user(username, mail, mdp) values (?,?,?);";
           connection.query(
