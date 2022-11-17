@@ -48,7 +48,6 @@ export default function votePage({ token }) {
       } else {
         setDataGamesError("Cannot load the data for the games... Try later.");
       }
-
     };
 
     dataFetch();
@@ -62,14 +61,9 @@ export default function votePage({ token }) {
       {dataGames ? (
         dataGames.map((match, index) => {
           return (
-            
             <div className="p-2 justify-center" key={index}>
-              <Matchesonly
-                match={match}
-                key={index}
-              />
+              <Matchesonly match={match} key={index} />
             </div>
-            
           );
         })
       ) : dataGamesError ? (

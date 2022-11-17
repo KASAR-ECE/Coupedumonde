@@ -187,61 +187,61 @@ const VoteCards = ({ match, dataVote }) => {
 
   return (
     <div className="place-items-center">
-    <div
-      key={match.match_id}
-      className="p-6 rounded-lg border border-gray-200 shadow-md bg-kasar1 place-items-center max-w-md"
-    >
-      <div className="max-w-md text-center items-center">
-        <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">
-          {dayString +
-            " " +
-            dayNumber +
-            "/" +
-            monthNumber +
-            " à " +
-            hour +
-            ":" +
-            minutes}
-        </h5>
-        <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">
-          {match.home_team}
-        </h5>
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
-          {" "}
-          - VS -{" "}
-        </h5>
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
-          {match.away_team}
-        </h5>
-        <ControlButton>
-          {showQuickVote ? showQuickVoteButton : hideQuickVoteButton}
-        </ControlButton>
-        <div className="flex justify-between my-auto">
-          <ButtonQuickVote
-            equipeName={match.home_team}
-            quickScoreVote={showQuickVote}
-            state={votes[0]}
-            setQuickVote={() => voteTeamHandler(1)}
-            setScoreVote={(score) => voteScoreTeamHandler(1, score)}
-          />
-          {showQuickVote ? (
-            <button
-              onClick={matchNulHandler}
-              className={`text-kasar1 font-bold ${color} border border-kasar2 rounded-lg p-1 hover:validate my-auto h-8`}
-            >
-              Match Nul
-            </button>
-          ) : null}
-          <ButtonQuickVote
-            equipeName={match.away_team}
-            quickScoreVote={showQuickVote}
-            state={votes[1]}
-            setQuickVote={() => voteTeamHandler(2)}
-            setScoreVote={(score) => voteScoreTeamHandler(2, score)}
-          />
+      <div
+        key={match.match_id}
+        className="p-6 rounded-lg border border-gray-200 shadow-md bg-kasar1 place-items-center max-w-md"
+      >
+        <div className="max-w-md text-center items-center">
+          <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">
+            {dayString +
+              " " +
+              dayNumber +
+              "/" +
+              monthNumber +
+              " à " +
+              hour +
+              ":" +
+              minutes}
+          </h5>
+          <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">
+            {match.home_team}
+          </h5>
+          <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
+            {" "}
+            - VS -{" "}
+          </h5>
+          <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
+            {match.away_team}
+          </h5>
+          <ControlButton>
+            {showQuickVote ? showQuickVoteButton : hideQuickVoteButton}
+          </ControlButton>
+          <div className="flex justify-between my-auto">
+            <ButtonQuickVote
+              equipeName={match.home_team}
+              quickScoreVote={showQuickVote}
+              state={votes[0]}
+              setQuickVote={() => voteTeamHandler(1)}
+              setScoreVote={(score) => voteScoreTeamHandler(1, score)}
+            />
+            {showQuickVote ? (
+              <button
+                onClick={matchNulHandler}
+                className={`text-kasar1 font-bold ${color} border border-kasar2 rounded-lg p-1 hover:validate my-auto h-8`}
+              >
+                Match Nul
+              </button>
+            ) : null}
+            <ButtonQuickVote
+              equipeName={match.away_team}
+              quickScoreVote={showQuickVote}
+              state={votes[1]}
+              setQuickVote={() => voteTeamHandler(2)}
+              setScoreVote={(score) => voteScoreTeamHandler(2, score)}
+            />
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };

@@ -3,7 +3,6 @@ const { parseCookies } = require("../middleware/parseCookies");
 
 module.exports = {
   getAll: (callback) => {
-
     return callback(
       new Error("No votes available, fill the database first!"),
       null
@@ -50,8 +49,8 @@ module.exports = {
 
     if (isEmpty(token)) {
       let err = {
-        message : "You are not logged in"
-      }
+        message: "You are not logged in",
+      };
       return callback(err, null);
     } else {
       user = parseJwt(token.token);

@@ -67,7 +67,9 @@ export default function Navbar({ token }) {
                 href="#pablo"
               >
                 <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-80 ">
-                  <a href={user != null ? "/vote" : "/matches"}>{user != null ? "Vote" : "Matches"}</a>
+                  <a href={user != null ? "/vote" : "/matches"}>
+                    {user != null ? "Vote" : "Matches"}
+                  </a>
                 </i>
               </div>
             </li>
@@ -94,8 +96,8 @@ export default function Navbar({ token }) {
               </div>
             </li>
             <p className="text-kasar3 leading-snug  inline-block mr-4 py-1 whitespace-nowrap sm:hidden">
-            {phrase}
-          </p>
+              {phrase}
+            </p>
           </ul>
         </div>
       </div>

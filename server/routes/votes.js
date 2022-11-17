@@ -11,14 +11,14 @@ votesRouter
     voteData = req.body;
     const token = parseCookies(req);
     let err = {
-      message : "You are not logged in"
-    }
+      message: "You are not logged in",
+    };
     if (isEmpty(token)) {
-        respObj = {
-          status: "error",
-          msg: err.message,
-        };
-        return resp.status(403).json(respObj);
+      respObj = {
+        status: "error",
+        msg: err.message,
+      };
+      return resp.status(403).json(respObj);
     } else {
       user = parseJwt(token.token);
       user = user.username;

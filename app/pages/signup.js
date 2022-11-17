@@ -57,7 +57,7 @@ const Signup = () => {
           }
           if (data && data.token) {
             //set cookie
-            setSignupError(null)
+            setSignupError(null);
             cookie.set("token", data.token, { expires: 10 });
             setSignupValidation("You are registered, you will be redirected");
             setTimeout(() => {

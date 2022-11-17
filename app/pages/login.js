@@ -51,7 +51,7 @@ const Login = () => {
         if (data && data.token) {
           console.log("oui");
           //set cookie
-          setLoginError(null)
+          setLoginError(null);
           cookie.set("token", data.token, { expires: 10 });
           setSignupValidation("You are registered, you will be redirected");
           setTimeout(() => {
