@@ -57,7 +57,10 @@ module.exports = {
     const token = parseCookies(req);
 
     if (isEmpty(token)) {
-      user = voteData.username;
+      let err = {
+        message : "You are not logged in"
+      }
+      return callback(err, null);
     } else {
       user = parseJwt(token.token);
       user = user.username;
