@@ -57,7 +57,7 @@ export default function votePage({ token }) {
   return (
     <div>
       <Head>
-        <title>Vote</title>
+        <title>Matches</title>
       </Head>
       {dataGames ? (
         dataGames.map((match, index) => {
