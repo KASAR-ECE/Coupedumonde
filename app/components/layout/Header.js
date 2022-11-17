@@ -13,14 +13,14 @@ export default function Navbar({ token }) {
   return (
     <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-kasar1 mb-3">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-        <div className="w-full relative flex justify-between sm:w-auto sm:static sm:block sm:justify-start">
+        <div className="w-full relative flex justify-between sm:w-auto sm:static sm:block sm:justify-start w-full">
           <a
             className="text-xl font-bold leading-relaxed inline-block mr-4 py-1 whitespace-nowrap uppercase text-kasar3"
             href="/"
           >
             Home
           </a>
-          <p className="text-kasar3 leading-snug ml-10 inline-block mr-4 py-1 whitespace-nowrap">
+          <p className="text-kasar3 leading-snug  inline-block mr-4 py-1 whitespace-nowrap hidden md:block">
             {phrase}
           </p>
           <div className="sm:hidden">
@@ -93,6 +93,9 @@ export default function Navbar({ token }) {
                 </i>
               </div>
             </li>
+            <p className="text-kasar3 leading-snug  inline-block mr-4 py-1 whitespace-nowrap sm:hidden">
+            {phrase}
+          </p>
           </ul>
         </div>
       </div>
