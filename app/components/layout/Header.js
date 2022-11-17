@@ -61,16 +61,13 @@ export default function Navbar({ token }) {
           id="example-navbar-danger"
         >
           <ul className="flex flex-col sm:flex-row list-none sm:ml-auto">
-            <li  className={
-            "nav-item " +
-            (user != null ? "" : "invisible")
-          }>
+            <li className="nav-item">
               <div
                 className="px-3 py-2 flex items-center  uppercase font-bold leading-snug text-kasar3 hover:opacity-75"
                 href="#pablo"
               >
                 <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-80 ">
-                  <a href="/vote">Vote</a>
+                  <a href={user != null ? "/vote" : "/matches"}>{user != null ? "Vote" : "Maches"}</a>
                 </i>
               </div>
             </li>
