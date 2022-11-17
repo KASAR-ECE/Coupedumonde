@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import VoteCards from "../../components/votes/VoteCards";
 import cookie from "cookie";
-const username = "userTest";
 import jwt_decode from "jwt-decode";
 import UserContextProvider from "../../context/UserContext";
 import { useContext } from "react";

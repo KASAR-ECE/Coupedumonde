@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import ButtonQuickVote from "./ButtonQuickVote";
-import { useReducer } from "react";
-import { reducerVotes, initialVotes } from "./VoteCards_reducer";
 
 const Matchesonly = ({ match, dataVote }) => {
   const [isDraw, setIsDraw] = useState(true);
