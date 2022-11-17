@@ -67,7 +67,7 @@ export default function Navbar({ token }) {
                 href="#pablo"
               >
                 <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-80 ">
-                  <a href={user != null ? "/vote" : "/matches"}>{user != null ? "Vote" : "Maches"}</a>
+                  <a href={user != null ? "/vote" : "/matches"}>{user != null ? "Vote" : "Matches"}</a>
                 </i>
               </div>
             </li>

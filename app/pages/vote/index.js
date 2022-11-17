@@ -67,14 +67,14 @@ export default function votePage({ token }) {
   }, []);
 
   return (
-    <div>
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 content-start">
       <Head>
         <title>Vote</title>
       </Head>
       {dataGames ? (
         dataGames.map((match, index) => {
           return (
-            <div className="p-2" key={index}>
+            <div className="p-2 inline" key={index}>
               <VoteCards
                 match={match}
                 key={index}
