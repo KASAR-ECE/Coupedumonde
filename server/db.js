@@ -7,10 +7,26 @@ const connection = mysql.createConnection({
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
 });
-
+function handledisconnect(){
 connection.connect((err) => {
-  if (err) throw err;
-  console.log("Database Connected...");
+  if (err) throw err
+  {console.log("Database Connected...");
+  setTimeout(handleDisconnect, 2000);
+}
 });
+
+connection.on('error', function(err) {
+  console.log('db error', err);
+  if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+    handleDisconnect();                         
+  } else {                                      
+    
+    throw err;                                  
+    
+  }
+});
+
+}
+
 
 module.exports = connection;
