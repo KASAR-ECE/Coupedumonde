@@ -43,7 +43,7 @@ export default function votePage({ token }) {
         })
       ).json();
       const votes = await (
-        await fetch(url + "/votes/" + username, {
+        await fetch(url + "/votes/" , {
           withCredntials: true,
           credentials: "include",
         })

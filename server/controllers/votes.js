@@ -3,19 +3,11 @@ const { parseCookies } = require("../middleware/parseCookies");
 
 module.exports = {
   getAll: (callback) => {
-    connection.query("SELECT * FROM predict", function (err, result, fields) {
-      if (err) {
-        return callback(err, null);
-      }
-      if (result.length < 1) {
-        return callback(
-          new Error("No votes available, fill the database first!"),
-          null
-        );
-      } else {
-        return callback(null, result);
-      }
-    });
+
+    return callback(
+      new Error("No votes available, fill the database first!"),
+      null
+    );
   },
   getAllVotesUser: (idUser, callback) => {
     var sql = "SELECT * FROM predict WHERE username = ?";
