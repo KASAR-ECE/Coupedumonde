@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 import UserContextProvider from "../../context/UserContext";
 import { useContext } from "react";
 const username = "userTest";
+import countryFlagEmoji from "country-flag-emoji";
 
 export default function votePage({ token }) {
   const [dataGames, setDataGames] = useState(null);
@@ -14,6 +15,7 @@ export default function votePage({ token }) {
   const { user, signIn, signOut } = useContext(UserContextProvider);
 
   useEffect(() => {
+    console.log(countryFlagEmoji.data)
     if (typeof token !== "undefined") {
       var decode = jwt_decode(token);
       signIn(decode.username);
