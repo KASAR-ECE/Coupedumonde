@@ -101,7 +101,7 @@ const Login = () => {
           <input
             type="submit"
             value="Submit"
-            className="bg-purple-500 hover:bg-purple-600 active:bg-purple-700 focus:outline-none focus:ring focus:ring-purple-300 text-white font-bold py-2 px-4 rounded focus:outline-none "
+            className="bg-purple-500 hover:bg-purple-600 active:bg-purple-700 focus:outline-none focus:ring focus:ring-purple-300 text-white font-bold py-2 px-4 rounded "
           />
           <p className="mt-auto text-sm mb-auto text-gray-700">
             <Link href="/signup">No account ?</Link>

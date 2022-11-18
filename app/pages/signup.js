@@ -138,7 +138,7 @@ const Signup = () => {
         <input
           type="submit"
           value="Submit"
-          className="mb-6 bg-purple-500 hover:bg-purple-600 active:bg-purple-700 focus:outline-none focus:ring focus:ring-purple-300 text-white font-bold py-2 px-4 rounded focus:outline-none ml-auto mr-auto"
+          className="mb-6 bg-purple-500 hover:bg-purple-600 active:bg-purple-700 focus:outline-none focus:ring focus:ring-purple-300 text-white font-bold py-2 px-4 rounded ml-auto mr-auto"
         />
         {signupError && <p style={{ color: "red" }}>{signupError}</p>}
         {signupValidation && (
