@@ -11,8 +11,7 @@ var hh = today.getHours();
 var min = today.getMinutes();
 var s = today.getSeconds();
 today = "'"+yyyy + '-' + mm + '-' + dd + ' ' + hh + ':' + min +':' + s+'.'+'000000'+"'";
-requete = "SELECT * FROM games WHERE date > " + today;
-console.log(today);
+requete = "SELECT * FROM games WHERE date > " + today + "ORDER BY date";
     connection.query(requete, function (err, result, fields) {
       if (err) {
         return callback(err, null);
