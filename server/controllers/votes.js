@@ -86,50 +86,73 @@ module.exports = {
       score_away: voteData.score_away,
     };
 
-    var sqlCheck = "SELECT * from predict where username = ? and game_ID = ?";
+    var sqlCheck = "SELECT date from games where match_id = ?";
     connection.query(
       sqlCheck,
-      [voteObj.username, voteObj.game_ID],
+      [voteObj.game_ID],
       function (err, result) {
         if (err) {
           return callback(err, null);
         } else {
-          if (result.length > 0) {
-            //this user already voted for this game, so its an update
-            var sql =
-              "UPDATE predict SET `score_home` = ?, `score_away` = ? WHERE username = ? and game_ID = ?";
+          const utcStr = new Date()
+          if(utcStr<result[0].date){
+            var sqlCheck = "SELECT * from predict where username = ? and game_ID = ?";
             connection.query(
-              sql,
-              [
-                voteObj.score_home,
-                voteObj.score_away,
-                voteObj.username,
-                voteObj.game_ID,
-              ],
+              sqlCheck,
+              [voteObj.username, voteObj.game_ID],
               function (err, result) {
                 if (err) {
                   return callback(err, null);
                 } else {
-                  return callback(null, result);
+                  if (result.length > 0) {
+                    //this user already voted for this game, so its an update
+                    var sql =
+                      "UPDATE predict SET `score_home` = ?, `score_away` = ? WHERE username = ? and game_ID = ?";
+                    connection.query(
+                      sql,
+                      [
+                        voteObj.score_home,
+                        voteObj.score_away,
+                        voteObj.username,
+                        voteObj.game_ID,
+                      ],
+                      function (err, result) {
+                        if (err) {
+                          return callback(err, null);
+                        } else {
+                          return callback(null, result);
+                        }
+                      }
+                    );
+                  } else {
+                    //we intert the new vote for this user
+                    var sql =
+                      "INSERT INTO predict (`username`,`game_ID`,`score_home`,`score_away`) VALUES (?, ?, ?, ?)";
+                    var values = Object.values(voteObj);
+                    connection.query(sql, values, function (err, result) {
+                      if (err) {
+                        return callback(err, null);
+                      } else {
+                        return callback(null, result);
+                      }
+                    });
+                  }
                 }
               }
             );
-          } else {
-            //we intert the new vote for this user
-            var sql =
-              "INSERT INTO predict (`username`,`game_ID`,`score_home`,`score_away`) VALUES (?, ?, ?, ?)";
-            var values = Object.values(voteObj);
-            connection.query(sql, values, function (err, result) {
-              if (err) {
-                return callback(err, null);
-              } else {
-                return callback(null, result);
-              }
-            });
           }
+          else{
+            let err = {
+              message: "Can't vote for this match",
+            };
+            return callback(err, null);
+          }
+
         }
       }
     );
+
+
 
     // curl --header "Content-Type: application/json" \
     // --request POST \
