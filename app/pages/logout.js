@@ -1,5 +1,6 @@
 import Router from "next/router";
 import { serialize } from "cookie";
+import { useEffect } from "react";
 
 export default function Logout() {
   useEffect(() => {
