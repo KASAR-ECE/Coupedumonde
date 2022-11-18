@@ -6,10 +6,10 @@
 
 2. ```JWT_SECRET``` must be a long random string
 
-3. Generate ```server/secret``` by executing :
+3. Generate ```server/secret``` by executing in the root folder:
 
 ```bash
-sh newsalt.sh
+newsalt.sh
 ```
 
 ## Docker

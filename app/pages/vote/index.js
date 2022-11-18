@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
 import VoteCards from "../../components/votes/VoteCards";
 import cookie from "cookie";
-const username = "userTest";
 import jwt_decode from "jwt-decode";
 import UserContextProvider from "../../context/UserContext";
 import { useContext } from "react";
+const username = "userTest";
 
 export default function votePage({ token }) {
   const [dataGames, setDataGames] = useState(null);
   const [dataGamesError, setDataGamesError] = useState(null);
   const [dataVotes, setDataVotes] = useState(null);
   const [dataVotesError, setDataVotesError] = useState(null);
-  if (typeof token !== "undefined") {
-    var decode = jwt_decode(token);
-    const { user, signIn, signOut } = useContext(UserContextProvider);
-    signIn(decode.username);
-  }
+  const { user, signIn, signOut } = useContext(UserContextProvider);
+
   useEffect(() => {
+    if (typeof token !== "undefined") {
+      var decode = jwt_decode(token);
+      signIn(decode.username);
+    }
     // fetch games data
     let url = "";
     if (

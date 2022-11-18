@@ -3,15 +3,18 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import jwt_decode from "jwt-decode";
 import UserContextProvider from "../context/UserContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import cookie from "cookie";
 
 export default function Home({ token }) {
-  if (typeof token !== "undefined") {
-    var decode = jwt_decode(token);
-    const { user, signIn, signOut } = useContext(UserContextProvider);
-    signIn(decode.username);
-  }
+  const { user, signIn, signOut } = useContext(UserContextProvider);
+
+  useEffect(() => {
+    if (typeof token !== "undefined") {
+      var decode = jwt_decode(token);
+      signIn(decode.username);
+    }
+  }, [token])
 
   return (
     <div className={styles.container}>
