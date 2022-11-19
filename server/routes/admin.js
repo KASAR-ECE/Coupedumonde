@@ -67,6 +67,9 @@ router.post("/addmatch", async (req, res) => {
   });
 });
 
+router.get("/getusers", async (req, res) => {
+  console.log("test")
+});
 
 
 module.exports = router;
