@@ -49,16 +49,7 @@ router.post("/addmatch", async (req, res) => {
     res.status(403).json(respObj);
     return;
   }
-  if (req.body.username) username = req.body.username;
-  else {
-    console.log("ERROR : no username sent");
-    data = {
-      error: true,
-      message: "no username",
-    };
-    res.status(403).json(data);
-    return;
-  }
+
 
   if (req.body.dataAway_team) dataAway_team = req.body.dataAway_team;
   else {
@@ -86,6 +77,54 @@ router.post("/addmatch", async (req, res) => {
     data = {
       error: true,
       message: "no dataHeure",
+    };
+    res.status(403).json(data);
+    return;
+  }
+  var score_away = req.body.dataScore_away
+  console.log(score_away)
+  if (typeof(score_away) === "undefined"){
+    
+    console.log("ERROR : no score_away returned");
+    data = {
+      error: true,
+      message: "no score_away",
+    };
+    res.status(403).json(data);
+    return;
+  }
+  var score_home = req.body.dataAway_team
+  console.log(score_home)
+  if (typeof(score_home) === "undefined"){
+    
+    console.log("ERROR : no score_home returned");
+    data = {
+      error: true,
+      message: "no score_home",
+    };
+    res.status(403).json(data);
+    return;
+  }
+  var cote_away = req.body.dataScore_away
+  console.log(cote_away)
+  if (typeof(cote_away) === "undefined"){
+    
+    console.log("ERROR : no cote_away returned");
+    data = {
+      error: true,
+      message: "no cote_away",
+    };
+    res.status(403).json(data);
+    return;
+  }
+  var cote_home = req.body.dataCote_home
+  console.log(cote_home)
+  if (typeof(cote_home) === "undefined"){
+    
+    console.log("ERROR : no cote_home returned");
+    data = {
+      error: true,
+      message: "no cote_home",
     };
     res.status(403).json(data);
     return;

@@ -111,7 +111,7 @@ const Matchesonly = ({ match, dataVote }) => {
             })
             .then((data) => {
                 if (data && data.error) {
-                    
+
                 }
                 if (data && !data.error) {
                     console.log("oui");
@@ -131,8 +131,8 @@ const Matchesonly = ({ match, dataVote }) => {
                     className=""
                     onSubmit={handleSubmit}
                 >
-                    
-                        
+
+
 
                     <div className="max-w-md text-center items-center">
                         <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">
@@ -161,36 +161,36 @@ const Matchesonly = ({ match, dataVote }) => {
                             onChange={(e) => setdataAway_team(e.target.value)}
                         />
                         <div className="flex  place-items-center max-w-md">
-                        <div className="w-1/3 ml-4 mr-4 ">
-                        <input className="mt-16 flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto bg-kasar1 outline outline-2  outline-offset-2 text-center"
-                            value={dataScore_home}
-                            placeholder={"Score : " + match.home_team_score} 
-                            onChange={(e) => setdataScore_home(e.target.value)}
-                        />
-                        <input className="mt-4 flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto bg-kasar1 outline outline-2  outline-offset-2 text-center"
-                        value={dataScore_away}
-                        placeholder={"Score : " + match.away_team_score} 
-                        onChange={(e) => setdataScore_away(e.target.value)}
-                    />
+                            <div className="w-1/3 ml-4 mr-4 ">
+                                <input className="mt-16 flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto bg-kasar1 outline outline-2  outline-offset-2 text-center"
+                                    value={dataScore_home}
+                                    placeholder={"Score : " + match.home_team_score}
+                                    onChange={(e) => setdataScore_home(e.target.value)}
+                                />
+                                <input className="mt-4 flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto bg-kasar1 outline outline-2  outline-offset-2 text-center"
+                                    value={dataScore_away}
+                                    placeholder={"Score : " + match.away_team_score}
+                                    onChange={(e) => setdataScore_away(e.target.value)}
+                                />
 
 
-</div>
-<div className="w-1/3 ">
-                        <input className="mt-16 flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto bg-kasar1 outline outline-2  outline-offset-2 text-center"
-                            value={dataCote_home}
-                            placeholder={"Cote : " + match.cote_home} 
-                            onChange={(e) => setdataCote_home(e.target.value)}
-                        />
-                        <input className="mt-4 flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto bg-kasar1 outline outline-2  outline-offset-2 text-center"
-                        value={dataCote_away}
-                        placeholder={"Cote : " + match.cote_away} 
-                        onChange={(e) => setdataCote_away(e.target.value)}
-                    />
-</div>
+                            </div>
+                            <div className="w-1/3 ">
+                                <input className="mt-16 flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto bg-kasar1 outline outline-2  outline-offset-2 text-center"
+                                    value={dataCote_home}
+                                    placeholder={"Cote : " + match.cote_home}
+                                    onChange={(e) => setdataCote_home(e.target.value)}
+                                />
+                                <input className="mt-4 flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto bg-kasar1 outline outline-2  outline-offset-2 text-center"
+                                    value={dataCote_away}
+                                    placeholder={"Cote : " + match.cote_away}
+                                    onChange={(e) => setdataCote_away(e.target.value)}
+                                />
+                            </div>
 
 
-</div>
-<input
+                        </div>
+                        <input
                             type="submit"
                             value="Submit"
                             className="bg-purple-500 hover:bg-purple-600 active:bg-purple-700 focus:outline-none focus:ring focus:ring-purple-300 text-white font-bold py-2 px-4 rounded focus:outline-none "
