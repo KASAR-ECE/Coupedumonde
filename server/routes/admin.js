@@ -4,14 +4,16 @@ const jwt = require("jsonwebtoken");
 require("crypto").randomBytes(64).toString("hex");
 const bcrypt = require("bcrypt");
 const fs = require("fs");
+const { parseCookies } = require("../middleware/parseCookies");
+const { isEmpty } = require("../middleware/parseCookies");
+const {parseJwt} = require("../middleware/parseCookies")
 
 var connection = require("../db");
 
 const auth = require("../middleware/auth");
+const { parse } = require("path");
 
 router.post("/addmatch", async (req, res) => {
-  var mailstate = false;
-  var usernamestate = false;
   if (req.body.dataAway_team) dataAway_team = req.body.dataAway_team;
   else {
     console.log("ERROR : no dataAway_team returned");
@@ -68,7 +70,25 @@ router.post("/addmatch", async (req, res) => {
 });
 
 router.get("/getusers", async (req, res) => {
-  console.log("test")
+  var user;
+  voteData = req.body;
+  const token = parseCookies(req);
+  console.log(token)
+  let err = {
+    message: "You are not logged in",
+  };
+  if (isEmpty(token)) {
+    respObj = {
+      status: "error",
+      msg: err.message,
+    };
+    return res.status(403).json(respObj);
+  } 
+  else{
+    user = parseJwt(token.is_admin);
+    console.log(user)
+    user = user.username;
+  }
 });
 
 
