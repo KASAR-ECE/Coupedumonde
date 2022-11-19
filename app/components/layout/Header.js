@@ -72,6 +72,16 @@ export default function Navbar({ fixed }) {
             </li>
             <li className="nav-item">
               <div
+                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-kasar3 hover:opacity-80"
+                href="#pablo"
+              >
+                <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-80">
+                  <a href="/ranking">Ranking</a>
+                </i>
+              </div>
+            </li>
+            <li className="nav-item">
+              <div
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-kasar3 hover:opacity-75"
                 href="#pablo"
               >
