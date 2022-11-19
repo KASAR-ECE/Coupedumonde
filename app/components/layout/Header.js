@@ -86,7 +86,7 @@ export default function Navbar({ fixed }) {
                 href="#pablo"
               >
                 <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-75">
-                  <a href="/">About us</a>
+                  <a href="/rules">Rules</a>
                 </i>
               </div>
             </li>
