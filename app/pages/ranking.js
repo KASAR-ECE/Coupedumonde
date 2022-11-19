@@ -39,6 +39,7 @@ console.log(ranks);
 },[]);
 return (
 <div>
+  <Head> <title>Ranking</title> </Head>
 <h1 className="font-medium leading-tight text-5xl mt-0 mb-2 text-violet-900 text-center">Les Meilleurs Parieurs</h1>
 
       <div className="flex flex-col">
