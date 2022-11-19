@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Router from "next/router";
 import cookie from "js-cookie";
 import Head from "next/head";
 import Link from "next/link";
+import Context from "../context/UserContext"
 
 const Login = () => {
   const [loginError, setLoginError] = useState("");
   const [signupValidation, setSignupValidation] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { signIn } = useContext(Context);
+
 
   function handleSubmit(e, docker) {
     e.preventDefault();
@@ -54,7 +57,7 @@ const Login = () => {
           setLoginError(null);
           cookie.set("token", data.token, { expires: 10 });
           setSignupValidation("You are registered, you will be redirected");
-
+          signIn(data.username, data.email, data.score)
           setTimeout(() => {
             Router.push("/");
           }, 2000);

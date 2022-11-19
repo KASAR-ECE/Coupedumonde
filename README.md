@@ -9,7 +9,8 @@
 3. Generate ```server/secret``` by executing in the root folder:
 
 ```bash
-newsalt.sh
+bash
+sh newsalt.sh
 ```
 
 ## Docker
