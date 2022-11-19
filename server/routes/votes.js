@@ -13,7 +13,7 @@ votesRouter
     let err = {
       message: "You are not logged in",
     };
-    if (isEmpty(token)) {
+    if (isEmpty(token) || typeof(token.token)==="undefined") {
       respObj = {
         status: "error",
         msg: err.message,
@@ -67,7 +67,7 @@ votesRouter
     let err = {
       message: "You are not logged in",
     };
-    if (isEmpty(token)) {
+    if (isEmpty(token) || typeof(token.token)==="undefined") {
       respObj = {
         status: "error",
         msg: err.message,
@@ -116,10 +116,13 @@ votesRouter
 
 module.exports = votesRouter;
 
-function parseJwt(token) {
-  return JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
-}
-
+const parseJwt = (token) => {
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch (e) {
+    return null;
+  }
+};
 function isEmpty(object) {
   return Object.keys(object).length === 0;
 }
