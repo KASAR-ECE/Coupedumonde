@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Nov 18, 2022 at 08:42 AM
--- Server version: 5.7.31
--- PHP Version: 7.3.21
+-- Hôte : 127.0.0.1:3306
+-- Généré le : sam. 19 nov. 2022 à 21:12
+-- Version du serveur : 5.7.36
+-- Version de PHP : 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `world_cup`
+-- Base de données : `world_cup`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cotes`
+-- Structure de la table `cotes`
 --
 
 DROP TABLE IF EXISTS `cotes`;
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `cotes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `cotes`
+-- Déchargement des données de la table `cotes`
 --
 
 INSERT INTO `cotes` (`id`, `cote_home`, `cote_away`, `egalite`) VALUES
@@ -92,19 +92,7 @@ INSERT INTO `cotes` (`id`, `cote_home`, `cote_away`, `egalite`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `countries`
---
-
-DROP TABLE IF EXISTS `countries`;
-CREATE TABLE IF NOT EXISTS `countries` (
-  `country` varchar(50) NOT NULL,
-  `flag` varchar(300) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `games`
+-- Structure de la table `games`
 --
 
 DROP TABLE IF EXISTS `games`;
@@ -120,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `games` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `games`
+-- Déchargement des données de la table `games`
 --
 
 INSERT INTO `games` (`match_id`, `round_number`, `date`, `location`, `home_team`, `away_team`, `group`) VALUES
@@ -192,7 +180,7 @@ INSERT INTO `games` (`match_id`, `round_number`, `date`, `location`, `home_team`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `predict`
+-- Structure de la table `predict`
 --
 
 DROP TABLE IF EXISTS `predict`;
@@ -206,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `predict` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `predict`
+-- Déchargement des données de la table `predict`
 --
 
 INSERT INTO `predict` (`predict_ID`, `username`, `game_ID`, `score_home`, `score_away`) VALUES
@@ -216,12 +204,12 @@ INSERT INTO `predict` (`predict_ID`, `username`, `game_ID`, `score_home`, `score
 -- --------------------------------------------------------
 
 --
--- Table structure for table `score`
+-- Structure de la table `score`
 --
 
 DROP TABLE IF EXISTS `score`;
 CREATE TABLE IF NOT EXISTS `score` (
-  `schoreh` int(5) NOT NULL,
+  `scoreh` int(5) NOT NULL,
   `scorea` int(5) NOT NULL,
   `penalties` tinyint(1) NOT NULL DEFAULT '0',
   `overtime` tinyint(1) NOT NULL DEFAULT '0',
@@ -229,10 +217,73 @@ CREATE TABLE IF NOT EXISTS `score` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `score`
+--
+
+INSERT INTO `score` (`scoreh`, `scorea`, `penalties`, `overtime`, `id`) VALUES
+(1, 2, 0, 0, 2);
+
+--
+-- Déclencheurs `score`
+--
+DROP TRIGGER IF EXISTS `update_scores`;
+DELIMITER $$
+CREATE TRIGGER `update_scores` BEFORE INSERT ON `score` FOR EACH ROW begin 
+    declare scorea int;
+    declare scoreh int;
+      declare predh int;
+        declare preda int;
+          declare coteh float;
+           declare cotea float;
+         declare coteeq float;
+
+            declare a float;
+set a =10;
+    set scoreh =  NEW.scoreh;
+    set scorea =  NEW.scorea;
+    set predh =  (SELECT score_home from predict where game_ID = NEW.id);
+    set preda =  (SELECT score_away from predict where game_ID = NEW.id);
+    set coteh =  (SELECT cote_home from cotes where id = NEW.id);
+    set cotea =  (SELECT cote_away from cotes where id = NEW.id);
+    set coteeq =  (SELECT egalite from cotes where id = NEW.id);
+
+
+   
+if((SELECT SIGN (scorea-scoreh)) = (SELECT SIGN(preda-predh)))
+        then 
+
+if(scorea = preda AND scoreh = predh) 
+then
+set a = 40;
+end if;
+
+if(scoreh>scorea)
+then
+UPDATE user
+SET score = score + a*coteh;
+end if;
+
+if(scoreh<scorea)
+then
+UPDATE user
+SET score = score + a*cotea;
+end if;
+
+if(scoreh = scorea)
+then
+UPDATE user
+SET score = score + a*coteeq;
+end if;
+        end if ;
+    end
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Structure de la table `user`
 --
 
 DROP TABLE IF EXISTS `user`;
@@ -240,17 +291,17 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(50) NOT NULL,
   `mail` varchar(50) NOT NULL,
   `mdp` varchar(200) NOT NULL,
-  `score` int(5) DEFAULT '10',
+  `score` int(10) DEFAULT '0',
   `mail_confirmed` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `user`
+-- Déchargement des données de la table `user`
 --
 
 INSERT INTO `user` (`username`, `mail`, `mdp`, `score`, `mail_confirmed`) VALUES
-('userTest', 'user.test@edu.ece.fr', 'password', 0, 1);
+('userTest', 'user.test@edu.ece.fr', 'password', 242, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
