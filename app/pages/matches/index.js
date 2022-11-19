@@ -23,13 +23,11 @@ export default function votePage({ token }) {
       window.location.hostname == "localhost"
     ) {
       url = "http://localhost/api";
-      console.log("oui");
     } else if (
       window.location.hostname == "localhost" &&
       window.location.origin.includes("3000")
     ) {
       url = "http://localhost:8080";
-      console.log("oui");
     } else {
       url = window.location.origin + "/api";
     }
