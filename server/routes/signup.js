@@ -108,7 +108,7 @@ router.post("/", async (req, res) => {
             [username, mail, password],
             (err, result, fields) => {
               if (err) throw err;
-              const token = generateAccessToken({ username: username });
+              const token = jwt.sign({username:username}, process.env.JWT_SECRET, { expiresIn: "10d" });
 
               res.status(200).json({ token });
             }

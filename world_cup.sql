@@ -106,9 +106,8 @@ CREATE TABLE `countries` (
 -- Structure de la table `games`
 --
 
-DROP TABLE IF EXISTS `games`;
-CREATE TABLE IF NOT EXISTS `games` (
-  `match_id` varchar(2) NOT NULL,
+CREATE TABLE `games` (
+  `match_id` int(2) PRIMARY KEY NOT NULL AUTO_INCREMENT ,
   `round_number` varchar(300) DEFAULT NULL,
   `date` datetime(6) DEFAULT NULL,
   `location` varchar(300) DEFAULT NULL,
@@ -237,10 +236,10 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(50) NOT NULL,
   `mail` varchar(50) NOT NULL,
   `mdp` varchar(200) NOT NULL,
-  `score` int(5) DEFAULT '10',
-  `mail_confirmed` tinyint(1) DEFAULT '0',
-  PRIMARY KEY (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `score` int(5) DEFAULT 10,
+  `mail_confirmed` tinyint(1) DEFAULT 0
+    `is_admin` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Déchargement des données de la table `user`
@@ -284,6 +283,12 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT pour la table `predict`
 --
+ALTER TABLE `games`
+  MODIFY `match_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
+
+
+
 ALTER TABLE `predict`
   MODIFY `predict_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
