@@ -6,7 +6,7 @@ ENV DOCKER=true
 WORKDIR /usr/src/app
 
 RUN mkdir /config
-COPY server/secret /config/
+
 RUN apk add nginx
 
 COPY app/package*.json ./
@@ -26,7 +26,7 @@ ENV NODE_ENV=production
 ENV DOCKER=true
 
 RUN mkdir /config
-COPY server/secret /config/
+
 
 RUN apk add nginx
 COPY nginx/nginx.conf "/etc/nginx/nginx.conf"
