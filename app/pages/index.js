@@ -4,13 +4,17 @@ import jwt_decode from "jwt-decode";
 import UserContextProvider from "../context/UserContext";
 import { useContext } from "react";
 import cookie from "cookie";
+import { useEffect } from "react";
 
 export default function Home({ token }) {
-  if (typeof token !== "undefined") {
-    var decode = jwt_decode(token);
-    const { user, signIn, signOut } = useContext(UserContextProvider);
-    signIn(decode.username);
-  }
+  const { user, signIn, signOut } = useContext(UserContextProvider);
+  useEffect(() => {
+    if (typeof token !== "undefined") {
+      var decode = jwt_decode(token);
+
+      signIn(decode.username);
+    }
+  });
 
   return (
     <div className={styles.container}>
