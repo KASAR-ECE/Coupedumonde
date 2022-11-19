@@ -7,14 +7,19 @@ import cookie from "cookie";
 import Link from 'next/link';
 import { useEffect } from "react";
 
-export default function Home({ token }) {
-    const { user, signIn, signOut } = useContext(UserContextProvider);
+export default function Admin({ token }) {
+    const { newadmin, signIn, admin } = useContext(UserContextProvider);
   useEffect(() => {
     if (typeof token !== "undefined") {
-      var decode = jwt_decode(token);
-
-      signIn(decode.username);
-    }
+        var decode = jwt_decode(token);
+        signIn(decode.username);
+        console.log(admin)
+        if(decode.is_admin==true){
+          console.log("test " + decode.is_admin)
+          newadmin();
+        }
+        console.log("admin" + admin)
+      }
   });
 
     return (
@@ -42,7 +47,7 @@ className="mb-6 bg-purple-500 hover:bg-purple-600 active:bg-purple-700 focus:out
     );
 }
 
-Home.getInitialProps = ({ req, res }) => {
+Admin.getInitialProps = ({ req, res }) => {
     const data = cookie.parse(req ? req.headers.cookie || "" : document.cookie);
 
     return {

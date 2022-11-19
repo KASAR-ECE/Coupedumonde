@@ -11,15 +11,18 @@ export default function votePage({ token }) {
   const [dataGamesError, setDataGamesError] = useState(null);
   const [dataVotes, setDataVotes] = useState(null);
   const [dataVotesError, setDataVotesError] = useState(null);
-  const { user, signIn, signOut } = useContext(UserContextProvider);
+  const { admin,signIn, newadmin } = useContext(UserContextProvider);
+
   useEffect(() => {
     if (typeof token !== "undefined") {
       var decode = jwt_decode(token);
-
       signIn(decode.username);
+      console.log(admin)
+      if(decode.is_admin==true){
+        console.log("test " + decode.is_admin)
+        newadmin();
+      }
     }
-  });
-  useEffect(() => {
     // fetch games data
     let url = "";
     if (

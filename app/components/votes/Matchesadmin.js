@@ -133,20 +133,20 @@ const Matchesonly = ({ match, dataVote }) => {
                             {" "}
                             - VS -{" "}
                         </h5>
-                        <input className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto bg-kasar1 outline outline-2  outline-offset-2 text-center"
+                        <input className="mt-4 flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto bg-kasar1 outline outline-2  outline-offset-2 text-center"
                             value={dataAway_team}
                             defaultValue={match.away_team}
                             onChange={(e) => setdataAway_team(e.target.value)}
                         />
-                        <input className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto bg-kasar1 outline outline-2  outline-offset-2 text-center"
+                        <input className="mt-16 flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto bg-kasar1 outline outline-2  outline-offset-2 text-center"
                             value={dataScore_home}
-                            defaultValue="Score home"
-                            onChange={(e) => setdataAway_team(e.target.value)}
+                            placeholder={"Score " + match.home_team} 
+                            onChange={(e) => setdataScore_home(e.target.value)}
                         />
-                        <input className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto bg-kasar1 outline outline-2  outline-offset-2 text-center"
-                        value={dataScore_home}
-                        defaultValue="Score away"
-                        onChange={(e) => setdataAway_team(e.target.value)}
+                        <input className="mt-4 flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto bg-kasar1 outline outline-2  outline-offset-2 text-center"
+                        value={dataScore_away}
+                        placeholder={"Score " + match.away_team} 
+                        onChange={(e) => setdataScore_away(e.target.value)}
                     />
 
                         <input
