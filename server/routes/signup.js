@@ -63,6 +63,15 @@ router.post("/", async (req, res) => {
     res.status(403).json(data);
     return;
   }
+  if (!mail.includes("@edu.ece.fr")) {
+    console.log("ERROR : password differents");
+    data = {
+      error: true,
+      message: "You must be a ECE student",
+    };
+    res.status(403).json(data);
+    return;
+  }
 
   var sql = "select * from user where mail = ?;";
 

@@ -97,6 +97,8 @@ const VoteCards = ({ match, dataVote }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(voteObj),
+        withCredntials: true,
+        credentials: "include",
       })
     ).json();
 
@@ -188,9 +190,9 @@ const VoteCards = ({ match, dataVote }) => {
   return (
     <div
       key={match.match_id}
-      className="p-6 rounded-lg border border-gray-200 shadow-md bg-kasar1"
+      className="p-6 rounded-lg border border-gray-200 shadow-md bg-kasar place-items-center1"
     >
-      <div className="max-w-md text-center items-center">
+      <div className="max-w-md text-center items-center ">
         <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">
           {dayString +
             " " +
@@ -207,19 +209,19 @@ const VoteCards = ({ match, dataVote }) => {
           {/* {console.log(countryFlagEmoji.list.filter(item => item.name === match.home_team.toString()))} */}
         </h5>
         <div className="flex flex-wrap text-center items-center ml-[40%]">
-          {countryFlagEmoji.list.filter(item => item.name === match.home_team.toString())[0] ? <ReactCountryFlag countryCode={countryFlagEmoji.list.filter(item => item.name === match.home_team.toString())[0].code} svg /> : null}
+          {countryFlagEmoji.list.filter(item => item.name === match.home_team.toString())[0] ? //EMOJI FLAG
+            <ReactCountryFlag countryCode={countryFlagEmoji.list.filter(item => item.name === match.home_team.toString())[0].code} svg /> : null}
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
             {" "}
             - VS -{" "}
           </h5>
-          {countryFlagEmoji.list.filter(item => item.name === match.away_team.toString())[0] ? <ReactCountryFlag countryCode={countryFlagEmoji.list.filter(item => item.name === match.away_team.toString())[0].code} svg /> : null}
+          {countryFlagEmoji.list.filter(item => item.name === match.away_team.toString())[0] ? //EMOJI FLAG
+            <ReactCountryFlag countryCode={countryFlagEmoji.list.filter(item => item.name === match.away_team.toString())[0].code} svg /> : null}
         </div>
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
           {match.away_team}
         </h5>
-        <ControlButton>
-          {showQuickVote ? showQuickVoteButton : hideQuickVoteButton}
-        </ControlButton>
+        <ControlButton> {showQuickVote ? showQuickVoteButton : hideQuickVoteButton} </ControlButton>
         <div className="flex justify-between my-auto">
           <ButtonQuickVote
             equipeName={match.home_team}

@@ -1,12 +1,30 @@
 const express = require("express");
 const votesController = require("../controllers/votes");
+const { parseCookies } = require("../middleware/parseCookies");
 
 const votesRouter = express.Router();
 
 votesRouter
   .get("/", (req, resp) => {
     // resp.writeHead(200, { 'Content-Type': 'text/json' })
-    votesController.getAll((err, res) => {
+    var user;
+    voteData = req.body;
+    const token = parseCookies(req);
+    let err = {
+      message: "You are not logged in",
+    };
+    if (isEmpty(token)) {
+      respObj = {
+        status: "error",
+        msg: err.message,
+      };
+      return resp.status(403).json(respObj);
+    } else {
+      user = parseJwt(token.token);
+      user = user.username;
+    }
+    const userID = req.params.userID;
+    votesController.getAllVotesUser(user, (err, res) => {
       let respObj;
       if (err) {
         respObj = {
@@ -43,6 +61,22 @@ votesRouter
     });
   })
   .get("/:userID/:gameID", (req, resp) => {
+    var user;
+    voteData = req.body;
+    const token = parseCookies(req);
+    let err = {
+      message: "You are not logged in",
+    };
+    if (isEmpty(token)) {
+      respObj = {
+        status: "error",
+        msg: err.message,
+      };
+      return resp.status(403).json(respObj);
+    } else {
+      user = parseJwt(token.token);
+      user = user.username;
+    }
     const userID = req.params.userID;
     const gameID = req.params.gameID;
     votesController.getOneVotesUser(userID, gameID, (err, res) => {
@@ -63,7 +97,7 @@ votesRouter
     });
   })
   .post("/", (req, resp) => {
-    votesController.createVote(req.body, (err, res) => {
+    votesController.createVote(req, (err, res) => {
       let respObj;
       if (err) {
         respObj = {
@@ -81,3 +115,11 @@ votesRouter
   });
 
 module.exports = votesRouter;
+
+function parseJwt(token) {
+  return JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
+}
+
+function isEmpty(object) {
+  return Object.keys(object).length === 0;
+}

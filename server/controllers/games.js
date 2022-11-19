@@ -2,7 +2,32 @@ var connection = require("../db");
 
 module.exports = {
   getAll: (callback) => {
-    connection.query("SELECT * FROM games", function (err, result, fields) {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, "0");
+    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = today.getFullYear();
+    var hh = today.getHours();
+    var min = today.getMinutes();
+    var s = today.getSeconds();
+    today =
+      "'" +
+      yyyy +
+      "-" +
+      mm +
+      "-" +
+      dd +
+      " " +
+      hh +
+      ":" +
+      min +
+      ":" +
+      s +
+      "." +
+      "000000" +
+      "'";
+    requete = "SELECT * FROM games WHERE date > " + today;
+    console.log(today);
+    connection.query(requete, function (err, result, fields) {
       if (err) {
         return callback(err, null);
       }
