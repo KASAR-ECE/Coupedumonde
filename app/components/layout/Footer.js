@@ -1,6 +1,4 @@
-import { useState } from "react";
-
-export default function Footer({ fixed }) {
+export default function Footer({}) {
   return (
     <footer>
       <div className="relative flex flex-wrap items-center h-14 bg-kasar1">

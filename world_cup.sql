@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `world_cup`
+-- Base de données : `world_cup`
 --
 
 -- --------------------------------------------------------
@@ -95,8 +95,7 @@ INSERT INTO `cotes` (`id`, `cote_home`, `cote_away`, `egalite`) VALUES
 -- Table structure for table `countries`
 --
 
-DROP TABLE IF EXISTS `countries`;
-CREATE TABLE IF NOT EXISTS `countries` (
+CREATE TABLE `countries` (
   `country` varchar(50) NOT NULL,
   `flag` varchar(300) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -104,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `countries` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `games`
+-- Structure de la table `games`
 --
 
 DROP TABLE IF EXISTS `games`;
@@ -120,7 +119,7 @@ CREATE TABLE IF NOT EXISTS `games` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `games`
+-- Déchargement des données de la table `games`
 --
 
 INSERT INTO `games` (`match_id`, `round_number`, `date`, `location`, `home_team`, `away_team`, `group`) VALUES
@@ -195,18 +194,16 @@ INSERT INTO `games` (`match_id`, `round_number`, `date`, `location`, `home_team`
 -- Table structure for table `predict`
 --
 
-DROP TABLE IF EXISTS `predict`;
-CREATE TABLE IF NOT EXISTS `predict` (
-  `predict_ID` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `predict` (
+  `predict_ID` int(10) NOT NULL,
   `username` varchar(50) NOT NULL,
   `game_ID` int(5) NOT NULL,
   `score_home` int(5) NOT NULL,
-  `score_away` int(5) NOT NULL,
-  PRIMARY KEY (`predict_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `score_away` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
--- Dumping data for table `predict`
+-- Déchargement des données de la table `predict`
 --
 
 INSERT INTO `predict` (`predict_ID`, `username`, `game_ID`, `score_home`, `score_away`) VALUES
@@ -216,7 +213,7 @@ INSERT INTO `predict` (`predict_ID`, `username`, `game_ID`, `score_home`, `score
 -- --------------------------------------------------------
 
 --
--- Table structure for table `score`
+-- Structure de la table `score`
 --
 
 DROP TABLE IF EXISTS `score`;
@@ -232,7 +229,7 @@ CREATE TABLE IF NOT EXISTS `score` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Structure de la table `user`
 --
 
 DROP TABLE IF EXISTS `user`;
@@ -246,11 +243,49 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `user`
+-- Déchargement des données de la table `user`
 --
 
 INSERT INTO `user` (`username`, `mail`, `mdp`, `score`, `mail_confirmed`) VALUES
 ('userTest', 'user.test@edu.ece.fr', 'password', 0, 1);
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `games`
+--
+ALTER TABLE `games`
+  ADD PRIMARY KEY (`match_id`);
+
+--
+-- Index pour la table `predict`
+--
+ALTER TABLE `predict`
+  ADD PRIMARY KEY (`predict_ID`);
+
+--
+-- Index pour la table `score`
+--
+ALTER TABLE `score`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `predict`
+--
+ALTER TABLE `predict`
+  MODIFY `predict_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
