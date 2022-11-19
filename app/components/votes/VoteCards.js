@@ -190,62 +190,59 @@ const VoteCards = ({ match, dataVote }) => {
   return (
     <div
       key={match.match_id}
-      className="p-6 rounded-lg border border-gray-200 shadow-md bg-kasar place-items-center1"
+      className="p-6 rounded-lg border border-gray-200 shadow-md bg-kasar place-items-center1 max-w-md text-center items-center bg-kasar1"
     >
-      <div className="max-w-md text-center items-center ">
-        <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">
-          {dayString +
-            " " +
-            dayNumber +
-            "/" +
-            monthNumber +
-            " à " +
-            hour +
-            ":" +
-            minutes}
-        </h5>
-        <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">
-          {match.home_team}
-          {/* {console.log(countryFlagEmoji.list.filter(item => item.name === match.home_team.toString()))} */}
-        </h5>
-        <div className="flex flex-wrap text-center items-center ml-[40%]">
-          {countryFlagEmoji.list.filter(item => item.name === match.home_team.toString())[0] ? //EMOJI FLAG
-            <ReactCountryFlag countryCode={countryFlagEmoji.list.filter(item => item.name === match.home_team.toString())[0].code} svg /> : null}
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
-            {" "}
-            - VS -{" "}
-          </h5>
-          {countryFlagEmoji.list.filter(item => item.name === match.away_team.toString())[0] ? //EMOJI FLAG
-            <ReactCountryFlag countryCode={countryFlagEmoji.list.filter(item => item.name === match.away_team.toString())[0].code} svg /> : null}
-        </div>
+      <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">
+        {dayString +
+          " " +
+          dayNumber +
+          "/" +
+          monthNumber +
+          " à " +
+          hour +
+          ":" +
+          minutes}
+      </h5>
+      <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">
+        {match.home_team}
+      </h5>
+      <div className="flex flex-wrap text-center items-center ml-[40%]">
+        {countryFlagEmoji.list.filter(item => item.name === match.home_team.toString())[0] ? //EMOJI FLAG
+          <ReactCountryFlag countryCode={countryFlagEmoji.list.filter(item => item.name === match.home_team.toString())[0].code} svg /> : null}
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
-          {match.away_team}
+          {" "}
+          - VS -{" "}
         </h5>
-        <ControlButton> {showQuickVote ? showQuickVoteButton : hideQuickVoteButton} </ControlButton>
-        <div className="flex justify-between my-auto">
-          <ButtonQuickVote
-            equipeName={match.home_team}
-            quickScoreVote={showQuickVote}
-            state={votes[0]}
-            setQuickVote={() => voteTeamHandler(1)}
-            setScoreVote={(score) => voteScoreTeamHandler(1, score)}
-          />
-          {showQuickVote ? (
-            <button
-              onClick={matchNulHandler}
-              className={`text-kasar1 font-bold ${color} border border-kasar2 rounded-lg p-1 hover:validate my-auto h-8`}
-            >
-              Match Nul
-            </button>
-          ) : null}
-          <ButtonQuickVote
-            equipeName={match.away_team}
-            quickScoreVote={showQuickVote}
-            state={votes[1]}
-            setQuickVote={() => voteTeamHandler(2)}
-            setScoreVote={(score) => voteScoreTeamHandler(2, score)}
-          />
-        </div>
+        {countryFlagEmoji.list.filter(item => item.name === match.away_team.toString())[0] ? //EMOJI FLAG
+          <ReactCountryFlag countryCode={countryFlagEmoji.list.filter(item => item.name === match.away_team.toString())[0].code} svg /> : null}
+      </div>
+      <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
+        {match.away_team}
+      </h5>
+      <ControlButton> {showQuickVote ? showQuickVoteButton : hideQuickVoteButton} </ControlButton>
+      <div className="flex justify-between my-auto">
+        <ButtonQuickVote
+          equipeName={match.home_team}
+          quickScoreVote={showQuickVote}
+          state={votes[0]}
+          setQuickVote={() => voteTeamHandler(1)}
+          setScoreVote={(score) => voteScoreTeamHandler(1, score)}
+        />
+        {showQuickVote ? (
+          <button
+            onClick={matchNulHandler}
+            className={`text-kasar1 font-bold ${color} border border-kasar2 rounded-lg p-1 hover:validate my-auto h-8`}
+          >
+            Match Nul
+          </button>
+        ) : null}
+        <ButtonQuickVote
+          equipeName={match.away_team}
+          quickScoreVote={showQuickVote}
+          state={votes[1]}
+          setQuickVote={() => voteTeamHandler(2)}
+          setScoreVote={(score) => voteScoreTeamHandler(2, score)}
+        />
       </div>
     </div>
   );

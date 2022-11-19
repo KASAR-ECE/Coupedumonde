@@ -57,7 +57,8 @@ const Login = () => {
           setLoginError(null);
           cookie.set("token", data.token, { expires: 10 });
           setSignupValidation("You are registered, you will be redirected");
-          signIn(data.username, data.email, data.score)
+
+          signIn(data.username, data.score) // Set context's data 
           setTimeout(() => {
             Router.push("/");
           }, 2000);

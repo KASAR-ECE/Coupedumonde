@@ -2,43 +2,42 @@ import { useEffect, useState } from "react";
 import VoteCards from "../../components/votes/VoteCards";
 import cookie from "cookie";
 import jwt_decode from "jwt-decode";
-import UserContextProvider from "../../context/UserContext";
+import Context from "../../context/UserContext";
 import { useContext } from "react";
 import Head from "next/head";
 import countryFlagEmoji from "country-flag-emoji";
-const username = "userTest";
 
 export default function votePage({ token }) {
   const [dataGames, setDataGames] = useState(null);
   const [dataGamesError, setDataGamesError] = useState(null);
   const [dataVotes, setDataVotes] = useState(null);
   const [dataVotesError, setDataVotesError] = useState(null);
-  const { user, signIn, signOut } = useContext(UserContextProvider);
+  const { username, signIn } = useContext(Context);
 
   useEffect(() => {
-    console.log(countryFlagEmoji.data)
-    if (typeof token !== "undefined") {
-      var decode = jwt_decode(token);
-      signIn(decode.username);
-    }
-    // fetch games data
+    //define url if localhost for dev or 
     let url = "";
     if (
       !window.location.origin.includes("3000") &&
       window.location.hostname == "localhost"
     ) {
       url = "http://localhost/api";
-      console.log("oui");
     } else if (
       window.location.hostname == "localhost" &&
       window.location.origin.includes("3000")
     ) {
       url = "http://localhost:8080";
-      console.log("oui");
     } else {
       url = window.location.origin + "/api";
     }
-    const dataFetch = async () => {
+
+    if (typeof token !== "undefined" && !username) { //page reaload -> restore username from cookie and fetch the score from api
+      var decode = jwt_decode(token);
+      signIn(decode.username);
+    }
+
+    // fetch games data
+    const gamesDataFetch = async () => {
       const games = await (
         await fetch(url + "/games/", {
           withCredntials: true,
@@ -66,7 +65,7 @@ export default function votePage({ token }) {
       }
     };
 
-    dataFetch();
+    gamesDataFetch();
   }, []);
 
   return (

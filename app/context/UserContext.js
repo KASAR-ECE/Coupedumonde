@@ -8,23 +8,20 @@ export default Context;
 export const ContextProvider = ({ children }) => {
   const [username, setUsername] = useState(null);
   const [score, setScore] = useState(null);
-  const [email, setEmail] = useState(null);
 
   return (
     <Context.Provider
       value={{
         username: username,
-        email: email,
         score: score,
 
         signOut: () => {
           setUsername(null);
-          setEmail(null);
           setScore(null);
         },
         signIn: (username, email, score) => {
+          console.log("login : " + username + " - " + score)
           setUsername(username);
-          setEmail(email);
           setScore(score);
         },
       }}
