@@ -101,9 +101,9 @@ export default function Navbar({ token }) {
                 </i>
               </div>
             </li>
-            <p className="text-kasar3 leading-snug  inline-block mr-4 py-1 whitespace-nowrap sm:hidden">
+            {/* <p className="text-kasar3 leading-snug  inline-block mr-4 py-1 whitespace-nowrap sm:hidden">
               {phrase}
-            </p>
+            </p> */}
           </ul>
         </div>
       </div>

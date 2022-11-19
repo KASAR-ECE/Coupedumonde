@@ -6,6 +6,7 @@ import Context from "../../context/UserContext";
 import { useContext } from "react";
 import Head from "next/head";
 import countryFlagEmoji from "country-flag-emoji";
+import getScore from "../../context/getScore";
 
 export default function votePage({ token }) {
   const [dataGames, setDataGames] = useState(null);
@@ -15,8 +16,15 @@ export default function votePage({ token }) {
   const { username, signIn } = useContext(Context);
 
   useEffect(() => {
-    //define url if localhost for dev or 
+    //define url if localhost for dev or
     let url = "";
+    let tokenUsername = null;
+    if (typeof token !== "undefined" && !username) {
+      //page reaload -> restore username from cookie and fetch the score from api
+      var decode = jwt_decode(token);
+      tokenUsername = decode.username;
+    }
+
     if (
       !window.location.origin.includes("3000") &&
       window.location.hostname == "localhost"
@@ -31,13 +39,14 @@ export default function votePage({ token }) {
       url = window.location.origin + "/api";
     }
 
-    if (typeof token !== "undefined" && !username) { //page reaload -> restore username from cookie and fetch the score from api
-      var decode = jwt_decode(token);
-      signIn(decode.username);
-    }
-
     // fetch games data
     const gamesDataFetch = async () => {
+      if (tokenUsername) {
+        //user has been restored from cookie, now restore the score
+        const scoreUser = await getScore(url, tokenUsername);
+        signIn(decode.username, scoreUser);
+      }
+
       const games = await (
         await fetch(url + "/games/", {
           withCredntials: true,

@@ -20,7 +20,6 @@ gamesRouter
         msg: res,
       };
       resp.send(respObj);
-      // console.log(respObj)
     });
   })
   .get("/:gameID", (req, resp) => {
@@ -39,7 +38,6 @@ gamesRouter
         msg: res,
       };
       resp.send(respObj);
-      // console.log(respObj)
     });
   });
 

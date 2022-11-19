@@ -19,8 +19,7 @@ export const ContextProvider = ({ children }) => {
           setUsername(null);
           setScore(null);
         },
-        signIn: (username, email, score) => {
-          console.log("login : " + username + " - " + score)
+        signIn: (username, score) => {
           setUsername(username);
           setScore(score);
         },

@@ -4,15 +4,43 @@ import jwt_decode from "jwt-decode";
 import UserContextProvider from "../context/UserContext";
 import { useContext, useEffect } from "react";
 import cookie from "cookie";
+import getScore from "../context/getScore";
 
 export default function Home({ token }) {
-  const { user, signIn, signOut } = useContext(UserContextProvider);
+  const { username, signIn } = useContext(UserContextProvider);
 
   useEffect(() => {
-    if (typeof token !== "undefined") {
+    let tokenUsername = null;
+    if (typeof token !== "undefined" && !username) {
+      //page reaload -> restore username from cookie and fetch the score from api
       var decode = jwt_decode(token);
-      signIn(decode.username);
+      tokenUsername = decode.username;
     }
+
+    const dataFetch = async () => {
+      let url = "";
+      if (
+        !window.location.origin.includes("3000") &&
+        window.location.hostname == "localhost"
+      ) {
+        url = "http://localhost/api";
+      } else if (
+        window.location.hostname == "localhost" &&
+        window.location.origin.includes("3000")
+      ) {
+        url = "http://localhost:8080";
+      } else {
+        url = window.location.origin + "/api";
+      }
+
+      if (tokenUsername) {
+        //user has been restored from cookie, now restore the score
+        const scoreUser = await getScore(url, tokenUsername);
+        signIn(decode.username, scoreUser);
+      }
+    };
+
+    dataFetch();
   }, [token])
 
   return (
