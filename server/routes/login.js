@@ -41,8 +41,20 @@ router.post("/", async (req, res) => {
   connection.query(sql, [username, password], (err, result, fields) => {
     if (err) throw err;
     if (result.length == 1) {
-      const token = generateAccessToken({ username: username });
-      res.status(200).json({ token });
+      results=JSON.parse(JSON.stringify(result))
+      console.log(results[0].is_admin)
+      if(results[0].is_admin == 1){
+
+        token = jwt.sign({username:username,"is_admin":true}, process.env.JWT_SECRET, { expiresIn: "10d" });
+        res.status(200).json({ token });
+      }
+      else{
+
+        token = jwt.sign({username:username}, process.env.JWT_SECRET, { expiresIn: "10d" });
+        res.status(200).json({ token });
+      }
+      
+      
     } else {
       data = {
         error: true,
@@ -53,8 +65,6 @@ router.post("/", async (req, res) => {
   });
 });
 
-function generateAccessToken(username) {
-  return jwt.sign(username, process.env.JWT_SECRET, { expiresIn: "10d" });
-}
+
 
 module.exports = router;

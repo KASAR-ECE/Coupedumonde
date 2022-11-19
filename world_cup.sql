@@ -52,7 +52,7 @@ CREATE TABLE `countries` (
 --
 
 CREATE TABLE `games` (
-  `match_id` varchar(2) NOT NULL,
+  `match_id` int(2) PRIMARY KEY NOT NULL AUTO_INCREMENT ,
   `round_number` varchar(300) DEFAULT NULL,
   `date` datetime(6) DEFAULT NULL,
   `location` varchar(300) DEFAULT NULL,
@@ -179,6 +179,7 @@ CREATE TABLE `user` (
   `mdp` varchar(200) NOT NULL,
   `score` int(5) DEFAULT 10,
   `mail_confirmed` tinyint(1) DEFAULT 0
+    `is_admin` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
@@ -223,6 +224,12 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT pour la table `predict`
 --
+ALTER TABLE `games`
+  MODIFY `match_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
+
+
+
 ALTER TABLE `predict`
   MODIFY `predict_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
