@@ -251,6 +251,158 @@ router.post("/deleteuser", async (req, res) => {
 
 
 });
+router.post("/modifymatch", async (req, res) => {
+  const cookie = parseCookies(req);
+  if(isEmpty(cookie)){
+    respObj = {
+      error: true,
+      msg: "You are not logged in",
+    };
+    res.status(403).json(respObj);
+    return;
+  }
+  var token = parseJwt(cookie.token)
+
+  if(isEmpty(token)){
+    respObj = {
+      status: "error",
+      msg: "You are not logged in",
+    };
+    res.status(403).json(respObj);
+    return;
+  }
+  if(typeof(token.username) === "undefined"){
+    respObj = {
+      status: "error",
+      msg: "You are not logged in",
+    };
+    res.status(403).json(respObj);
+    return;
+  }
+  if(typeof(token.is_admin) === "undefined"){
+    respObj = {
+      status: "error",
+      msg: "You are not admin",
+    };
+    res.status(403).json(respObj);
+    return;
+  }
+
+  if (req.body.match_id) match_id = req.body.match_id;
+  else {
+    console.log("ERROR : no match_id returned");
+    data = {
+      error: true,
+      message: "no match_id",
+    };
+    res.status(403).json(data);
+    return;
+  }
+
+  if (req.body.team_away) team_away = req.body.team_away;
+  else {
+    console.log("ERROR : no team_away returned");
+    data = {
+      error: true,
+      message: "no team_away",
+    };
+    res.status(403).json(data);
+    return;
+  }
+  if (req.body.team_home) team_home = req.body.team_home;
+  else {
+    console.log("ERROR : no team_home returned");
+    data = {
+      error: true,
+      message: "no team_home",
+    };
+    res.status(403).json(data);
+    return;
+  }
+  if (req.body.hour) hour = req.body.hour;
+  else {
+    console.log("ERROR : no hour returned");
+    data = {
+      error: true,
+      message: "no hour",
+    };
+    res.status(403).json(data);
+    return;
+  }
+  if (req.body.cote_home) cote_home = req.body.cote_home;
+  else {
+    console.log("ERROR : no cote_home returned");
+    data = {
+      error: true,
+      message: "no cote_home",
+    };
+    res.status(403).json(data);
+    return;
+  }
+  if (req.body.cote_away) cote_away = req.body.cote_away;
+  else {
+    console.log("ERROR : no cote_away returned");
+    data = {
+      error: true,
+      message: "no cote_away",
+    };
+    res.status(403).json(data);
+    return;
+  }
+  console.log(req.body.score_home)
+
+  var score_home = req.body.score_home
+  console.log(score_home)
+  if (typeof(score_home) === "undefined"){
+    
+    console.log("ERROR : no score_home returned");
+    data = {
+      error: true,
+      message: "no score_home",
+    };
+    res.status(403).json(data);
+    return;
+  }
+  var score_away = req.body.score_away
+  console.log(score_away)
+  if (typeof(score_away) === "undefined"){
+    
+    console.log("ERROR : no score_away returned");
+    data = {
+      error: true,
+      message: "no score_away",
+    };
+    res.status(403).json(data);
+    return;
+  }
+  console.log("oui")
+
+  var sql = "UPDATE `games` SET  home_team=?, away_team=?, home_team_score=?, away_team_score=? WHERE match_id=?";
+
+
+  connection.query(sql, [team_home, team_away, score_home, score_away, match_id], (err, result, fields) => {
+    if (err) throw err;
+    console.log(result)
+    results = JSON.parse(JSON.stringify(result))
+    console.log(results)
+    if (results.affectedRows == 1) {
+      data = {
+        message: "match added",
+      };
+      res.status(200).json(data)
+    }
+    else {
+      data = {
+        error: true,
+        message: "no dataHeure",
+      };
+      res.status(400).json(data)
+
+    }
+  });
+
+});
+
 
 
 module.exports = router;
