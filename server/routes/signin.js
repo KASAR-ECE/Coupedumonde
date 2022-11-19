@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
   if (req.body.username) username = req.body.username;
   else {
     console.log("ERROR : no username returned");
-    data = {
+    const data = {
       error: true,
       message: "no username",
     };
@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
   if (req.body.password) password = req.body.password;
   else {
     console.log("ERROR : no password returned");
-    data = {
+    const data = {
       error: true,
       message: "no password",
     };
@@ -42,9 +42,16 @@ router.post("/", async (req, res) => {
     if (err) throw err;
     if (result.length == 1) {
       const token = generateAccessToken({ username: username });
-      res.status(200).json({ token });
+      const data = {
+        error: false,
+        token,
+        username: result[0].username,
+        email: result[0].mail,
+        score: result[0].score,
+      };
+      res.status(200).json(data);
     } else {
-      data = {
+      const data = {
         error: true,
         message: "invalid username / password",
       };

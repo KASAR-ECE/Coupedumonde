@@ -6,16 +6,22 @@ const Context = createContext();
 export default Context;
 
 export const ContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [score, setScore] = useState(null);
+
   return (
     <Context.Provider
       value={{
-        user: user,
+        username: username,
+        score: score,
+
         signOut: () => {
-          setUser(null);
+          setUsername(null);
+          setScore(null);
         },
-        signIn: (user) => {
-          setUser(user);
+        signIn: (username, score) => {
+          setUsername(username);
+          setScore(score);
         },
       }}
     >

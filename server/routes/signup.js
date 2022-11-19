@@ -109,8 +109,14 @@ router.post("/", async (req, res) => {
             (err, result, fields) => {
               if (err) throw err;
               const token = generateAccessToken({ username: username });
-
-              res.status(200).json({ token });
+              const data = {
+                error: false,
+                token,
+                username: username,
+                email: mail,
+                score: 0, //by default, the score of the user is 0
+              };
+              res.status(200).json(data);
             }
           );
         }

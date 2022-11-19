@@ -68,13 +68,13 @@ module.exports = {
       return callback(
         new Error(
           "Wrong vote parameters : " +
-            voteData.username +
-            "||" +
-            voteData.game_ID +
-            "||" +
-            voteData.score_home +
-            "||" +
-            voteData.score_away
+          voteData.username +
+          "||" +
+          voteData.game_ID +
+          "||" +
+          voteData.score_home +
+          "||" +
+          voteData.score_away
         ),
         null
       );
