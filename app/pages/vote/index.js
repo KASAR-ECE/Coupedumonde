@@ -2,26 +2,33 @@ import { useEffect, useState } from "react";
 import VoteCards from "../../components/votes/VoteCards";
 import cookie from "cookie";
 import jwt_decode from "jwt-decode";
-import UserContextProvider from "../../context/UserContext";
+import Context from "../../context/UserContext";
 import { useContext } from "react";
 import Head from "next/head";
+import countryFlagEmoji from "country-flag-emoji";
+import getScore from "../../context/getScore";
 
 export default function votePage({ token }) {
   const [dataGames, setDataGames] = useState(null);
   const [dataGamesError, setDataGamesError] = useState(null);
   const [dataVotes, setDataVotes] = useState(null);
   const [dataVotesError, setDataVotesError] = useState(null);
-  const { user, signIn, signOut } = useContext(UserContextProvider);
-  useEffect(() => {
-    if (typeof token !== "undefined") {
-      var decode = jwt_decode(token);
+  const { username, signIn, admin, newadmin } = useContext(Context);
 
-      signIn(decode.username);
-    }
-  });
   useEffect(() => {
-    // fetch games data
+    //define url if localhost for dev or
     let url = "";
+    let tokenUsername = null;
+    if (typeof token !== "undefined" && !username) {
+      //page reaload -> restore username from cookie and fetch the score from api
+      var decode = jwt_decode(token);
+      tokenUsername = decode.username;
+      if (decode.is_admin == true) {
+        console.log("test " + decode.is_admin)
+        newadmin();
+      }
+    }
+
     if (
       !window.location.origin.includes("3000") &&
       window.location.hostname == "localhost"
@@ -35,7 +42,15 @@ export default function votePage({ token }) {
     } else {
       url = window.location.origin + "/api";
     }
-    const dataFetch = async () => {
+
+    // fetch games data
+    const gamesDataFetch = async () => {
+      if (tokenUsername) {
+        //user has been restored from cookie, now restore the score
+        const scoreUser = await getScore(url, tokenUsername);
+        signIn(decode.username, scoreUser);
+      }
+
       const games = await (
         await fetch(url + "/games/", {
           withCredntials: true,
@@ -63,7 +78,7 @@ export default function votePage({ token }) {
       }
     };
 
-    dataFetch();
+    gamesDataFetch();
   }, []);
 
   return (

@@ -108,9 +108,15 @@ router.post("/", async (req, res) => {
             [username, mail, password],
             (err, result, fields) => {
               if (err) throw err;
-              const token = generateAccessToken({ username: username });
-
-              res.status(200).json({ token });
+              const token = jwt.sign({ username: username }, process.env.JWT_SECRET, { expiresIn: "10d" });
+              const data = {
+                error: false,
+                token: token,
+                username: username,
+                email: mail,
+                score: 0, //by default, the score of the user is 0
+              };
+              res.status(200).json(data);
             }
           );
         }
@@ -118,9 +124,5 @@ router.post("/", async (req, res) => {
     }
   });
 });
-
-function generateAccessToken(username) {
-  return jwt.sign(username, process.env.JWT_SECRET, { expiresIn: "10d" });
-}
 
 module.exports = router;

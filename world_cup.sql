@@ -280,8 +280,48 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO `user` (`username`, `mail`, `mdp`, `score`, `mail_confirmed`, `is_admin`) VALUES
-('userTest', 'user.test@edu.ece.fr', 'password', 48, 1, 0);
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `games`
+--
+ALTER TABLE `games`
+  ADD PRIMARY KEY (`match_id`);
+
+--
+-- Index pour la table `predict`
+--
+ALTER TABLE `predict`
+  ADD PRIMARY KEY (`predict_ID`);
+
+--
+-- Index pour la table `score`
+--
+ALTER TABLE `score`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `predict`
+--
+
+
+
+
+
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

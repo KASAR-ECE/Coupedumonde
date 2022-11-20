@@ -26,7 +26,7 @@ module.exports = {
       "000000" +
       "'";
     requete = "SELECT * FROM games WHERE date > " + today;
-    console.log(today);
+    // console.log(today);
     connection.query(requete, function (err, result, fields) {
       if (err) {
         return callback(err, null);

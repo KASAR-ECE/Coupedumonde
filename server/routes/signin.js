@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
   if (req.body.username) username = req.body.username;
   else {
     console.log("ERROR : no username returned");
-    data = {
+    const data = {
       error: true,
       message: "no username",
     };
@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
   if (req.body.password) password = req.body.password;
   else {
     console.log("ERROR : no password returned");
-    data = {
+    const data = {
       error: true,
       message: "no password",
     };
@@ -41,10 +41,27 @@ router.post("/", async (req, res) => {
   connection.query(sql, [username, password], (err, result, fields) => {
     if (err) throw err;
     if (result.length == 1) {
-      const token = generateAccessToken({ username: username });
-      res.status(200).json({ token });
+      const dataUser = {
+        error: false,
+        username: result[0].username,
+        score: result[0].score,
+      };
+
+      results = JSON.parse(JSON.stringify(result))
+      // console.log(results[0].is_admin)
+      let token
+      if (results[0].is_admin == 1) {
+        token = jwt.sign({ username: username, "is_admin": true }, process.env.JWT_SECRET, { expiresIn: "10d" });
+        // res.status(200).json({ token });
+      }
+      else {
+        token = jwt.sign({ username: username }, process.env.JWT_SECRET, { expiresIn: "10d" });
+        // res.status(200).json({ token });
+      }
+
+      res.status(200).json({ ...dataUser, token });
     } else {
-      data = {
+      const data = {
         error: true,
         message: "invalid username / password",
       };
@@ -53,8 +70,6 @@ router.post("/", async (req, res) => {
   });
 });
 
-function generateAccessToken(username) {
-  return jwt.sign(username, process.env.JWT_SECRET, { expiresIn: "10d" });
-}
+
 
 module.exports = router;

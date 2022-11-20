@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Router from "next/router";
 import cookie from "js-cookie";
+import Context from "../context/UserContext"
 
 const Signup = () => {
   const [signupError, setSignupError] = useState("");
@@ -9,6 +10,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const { signIn } = useContext(Context);
 
   function handleSubmit(e) {
     if (
@@ -18,7 +20,6 @@ const Signup = () => {
       passwordConfirmation != "" &&
       password != ""
     ) {
-      console.log("non");
       setSignupError("");
       e.preventDefault();
       let url = "";
@@ -27,13 +28,11 @@ const Signup = () => {
         window.location.hostname == "localhost"
       ) {
         url = "http://localhost/api";
-        console.log("oui");
       } else if (
         window.location.hostname == "localhost" &&
         window.location.origin.includes("3000")
       ) {
         url = "http://localhost:8080";
-        console.log("oui");
       } else {
         url = window.location.origin + "/api";
       }
@@ -53,13 +52,14 @@ const Signup = () => {
         .then((data) => {
           if (data && data.error) {
             setSignupError(data.message);
-            console.log("error");
           }
           if (data && data.token) {
             //set cookie
             setSignupError(null);
             cookie.set("token", data.token, { expires: 10 });
             setSignupValidation("You are registered, you will be redirected");
+
+            signIn(data.username, data.score) // Set context's data 
             setTimeout(() => {
               Router.push("/");
             }, 2000);
@@ -89,6 +89,7 @@ const Signup = () => {
             onChange={(e) => setUsername(e.target.value)}
             name="username"
             type="username"
+            maxLength={10}
             required="required"
           />
         </div>
@@ -98,7 +99,7 @@ const Signup = () => {
           </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="username"
+            id="email"
             value={mail}
             onChange={(e) => setEmail(e.target.value)}
             name="email"
@@ -139,7 +140,7 @@ const Signup = () => {
         <input
           type="submit"
           value="Submit"
-          className="mb-6 bg-purple-500 hover:bg-purple-600 active:bg-purple-700 focus:outline-none focus:ring focus:ring-purple-300 text-white font-bold py-2 px-4 rounded focus:outline-none ml-auto mr-auto"
+          className="mb-6 bg-purple-500 hover:bg-purple-600 active:bg-purple-700 focus:outline-none focus:ring focus:ring-purple-300 text-white font-bold py-2 px-4 rounded ml-auto mr-auto"
         />
         {signupError && <p style={{ color: "red" }}>{signupError}</p>}
         {signupValidation && (

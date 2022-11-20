@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ButtonQuickVote from "./ButtonQuickVote";
 import { useReducer } from "react";
 import { reducerVotes, initialVotes } from "./VoteCards_reducer";
+import countryFlagEmoji from "country-flag-emoji";
+import ReactCountryFlag from "react-country-flag"
 
 const username = "userTest";
 
@@ -12,7 +14,7 @@ const VoteCards = ({ match, dataVote }) => {
       dataVote[0].score_away == 1000 || dataVote[0].score_home == 1000;
     const isDraw =
       dataVote[0].score_away == dataVote[0].score_home &&
-      dataVote[0].score_away != 0
+        dataVote[0].score_away != 0
         ? true
         : false;
     const firstTeamWin =
@@ -77,13 +79,11 @@ const VoteCards = ({ match, dataVote }) => {
       window.location.hostname == "localhost"
     ) {
       url = "http://localhost/api";
-      console.log("oui");
     } else if (
       window.location.hostname == "localhost" &&
       window.location.origin.includes("3000")
     ) {
       url = "http://localhost:8080";
-      console.log("oui");
     } else {
       url = window.location.origin + "/api";
     }
@@ -136,8 +136,8 @@ const VoteCards = ({ match, dataVote }) => {
     const color = isSavedError
       ? "bg-error"
       : isSaved
-      ? "bg-valide"
-      : "bg-kasar3";
+        ? "bg-valide"
+        : "bg-kasar3";
     return (
       <div className="text-center flex">
         <div className="flex-1">{props.children}</div>
@@ -186,61 +186,61 @@ const VoteCards = ({ match, dataVote }) => {
     (matchDate.getMinutes() < 10 ? "0" : "") + matchDate.getMinutes();
 
   return (
-    <div className="place-items-center">
-      <div
-        key={match.match_id}
-        className="p-6 rounded-lg border border-gray-200 shadow-md bg-kasar1 place-items-center max-w-md"
-      >
-        <div className="max-w-md text-center items-center">
-          <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">
-            {dayString +
-              " " +
-              dayNumber +
-              "/" +
-              monthNumber +
-              " à " +
-              hour +
-              ":" +
-              minutes}
-          </h5>
-          <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">
-            {match.home_team}
-          </h5>
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
-            {" "}
-            - VS -{" "}
-          </h5>
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
-            {match.away_team}
-          </h5>
-          <ControlButton>
-            {showQuickVote ? showQuickVoteButton : hideQuickVoteButton}
-          </ControlButton>
-          <div className="flex justify-between my-auto">
-            <ButtonQuickVote
-              equipeName={match.home_team}
-              quickScoreVote={showQuickVote}
-              state={votes[0]}
-              setQuickVote={() => voteTeamHandler(1)}
-              setScoreVote={(score) => voteScoreTeamHandler(1, score)}
-            />
-            {showQuickVote ? (
-              <button
-                onClick={matchNulHandler}
-                className={`text-kasar1 font-bold ${color} border border-kasar2 rounded-lg p-1 hover:validate my-auto h-8`}
-              >
-                Match Nul
-              </button>
-            ) : null}
-            <ButtonQuickVote
-              equipeName={match.away_team}
-              quickScoreVote={showQuickVote}
-              state={votes[1]}
-              setQuickVote={() => voteTeamHandler(2)}
-              setScoreVote={(score) => voteScoreTeamHandler(2, score)}
-            />
-          </div>
-        </div>
+    <div
+      key={match.match_id}
+      className="p-6 rounded-lg border border-gray-200 shadow-md bg-kasar place-items-center1 max-w-md text-center items-center bg-kasar1"
+    >
+      <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">
+        {dayString +
+          " " +
+          dayNumber +
+          "/" +
+          monthNumber +
+          " à " +
+          hour +
+          ":" +
+          minutes}
+      </h5>
+      <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">
+        {match.home_team}
+      </h5>
+      <div className="flex flex-wrap text-center items-center ml-[40%]">
+        {countryFlagEmoji.list.filter(item => item.name === match.home_team.toString())[0] ? //EMOJI FLAG
+          <ReactCountryFlag countryCode={countryFlagEmoji.list.filter(item => item.name === match.home_team.toString())[0].code} svg /> : null}
+        <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
+          {" "}
+          - VS -{" "}
+        </h5>
+        {countryFlagEmoji.list.filter(item => item.name === match.away_team.toString())[0] ? //EMOJI FLAG
+          <ReactCountryFlag countryCode={countryFlagEmoji.list.filter(item => item.name === match.away_team.toString())[0].code} svg /> : null}
+      </div>
+      <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
+        {match.away_team}
+      </h5>
+      <ControlButton> {showQuickVote ? showQuickVoteButton : hideQuickVoteButton} </ControlButton>
+      <div className="flex justify-between my-auto">
+        <ButtonQuickVote
+          equipeName={match.home_team}
+          quickScoreVote={showQuickVote}
+          state={votes[0]}
+          setQuickVote={() => voteTeamHandler(1)}
+          setScoreVote={(score) => voteScoreTeamHandler(1, score)}
+        />
+        {showQuickVote ? (
+          <button
+            onClick={matchNulHandler}
+            className={`text-kasar1 font-bold ${color} border border-kasar2 rounded-lg p-1 hover:validate my-auto h-8`}
+          >
+            Match Nul
+          </button>
+        ) : null}
+        <ButtonQuickVote
+          equipeName={match.away_team}
+          quickScoreVote={showQuickVote}
+          state={votes[1]}
+          setQuickVote={() => voteTeamHandler(2)}
+          setScoreVote={(score) => voteScoreTeamHandler(2, score)}
+        />
       </div>
     </div>
   );

@@ -6,16 +6,26 @@ const Context = createContext();
 export default Context;
 
 export const ContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [score, setScore] = useState(null);
+  const [admin, setAdmin] = useState(null);
+
   return (
     <Context.Provider
       value={{
-        user: user,
-        signOut: () => {
-          setUser(null);
+        username: username,
+        score: score,
+        admin: admin,
+        newadmin: () => {
+          setAdmin(true)
         },
-        signIn: (user) => {
-          setUser(user);
+        signOut: () => {
+          setUsername(null);
+          setScore(null);
+        },
+        signIn: (username, score) => {
+          setUsername(username);
+          setScore(score);
         },
       }}
     >

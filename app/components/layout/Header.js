@@ -1,26 +1,27 @@
 import { useState } from "react";
-import UserContextProvider from "../../context/UserContext";
+import Context from "../../context/UserContext";
 import { useContext } from "react";
 
 export default function Navbar({ token }) {
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const { user, signOut } = useContext(UserContextProvider);
+  const { username, score, admin } = useContext(Context);
   var phrase = "";
-  if (user != null) {
-    phrase = "Welcome, " + user;
+  if (username != null) {
+    phrase = "Your score " + username + " : " + score;
   }
+
 
   return (
     <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-kasar1 mb-3">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-        <div className="w-full relative flex justify-between sm:w-auto sm:static sm:block sm:justify-start w-full">
+        <div className="w-full relative flex justify-between sm:w-auto sm:static sm:block sm:justify-start ">
           <a
             className="text-xl font-bold leading-relaxed inline-block mr-4 py-1 whitespace-nowrap uppercase text-kasar3"
             href="/"
           >
-            Home
+            Home {admin}
           </a>
-          <p className="text-kasar3 leading-snug  inline-block mr-4 py-1 whitespace-nowrap hidden md:block">
+          <p className="text-kasar3 leading-snug inline-block mr-4 my-auto py-1 whitespace-nowrap  md:block">
             {phrase}
           </p>
           <div className="sm:hidden">
@@ -61,13 +62,30 @@ export default function Navbar({ token }) {
           id="example-navbar-danger"
         >
           <ul className="flex flex-col sm:flex-row list-none sm:ml-auto">
+
+            {
+              admin ? (
+                <li className="nav-item">
+                  <div
+                    className="px-3 py-2 flex items-center  uppercase font-bold leading-snug text-kasar3 hover:opacity-75"
+                    href="#pablo"
+                  >
+                    <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-80 ">
+                      <a href="/admin">Admin</a>
+                    </i>
+                  </div>
+                </li>
+              ) : (
+                ""
+              )
+            }
             <li className="nav-item">
               <div
                 className="px-3 py-2 flex items-center  uppercase font-bold leading-snug text-kasar3 hover:opacity-75"
               >
                 <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-80 ">
-                  <a href={user != null ? "/vote" : "/matches"}>
-                    {user != null ? "Vote" : "Matches"}
+                  <a href={username != null ? "/vote" : "/matches"}>
+                    {username != null ? "Vote" : "Matches"}
                   </a>
                 </i>
               </div>
@@ -77,8 +95,8 @@ export default function Navbar({ token }) {
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-kasar3 hover:opacity-80"
               >
                 <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-80">
-                  <a href={user != null ? "/logout" : "/login"}>
-                    {user != null ? "Logout" : "Login"}
+                  <a href={username != null ? "/logout" : "/login"}>
+                    {username != null ? "Logout" : "Login"}
                   </a>
                 </i>
               </div>
@@ -112,9 +130,9 @@ export default function Navbar({ token }) {
                 </i>
               </div>
             </li>
-            <p className="text-kasar3 leading-snug  inline-block mr-4 py-1 whitespace-nowrap sm:hidden">
+            {/* <p className="text-kasar3 leading-snug  inline-block mr-4 py-1 whitespace-nowrap sm:hidden">
               {phrase}
-            </p>
+            </p> */}
           </ul>
         </div>
       </div>

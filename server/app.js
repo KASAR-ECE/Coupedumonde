@@ -1,7 +1,6 @@
 const express = require("express");
 
 const cors = require("cors");
-const mysql = require("mysql");
 const path = require("path");
 
 require("dotenv").config({ path: path.resolve(__dirname + "/../.env") });
@@ -14,16 +13,18 @@ app.use(cors({ credentials: true, origin: true }));
 app.use(express.json());
 
 const signup = require("./routes/signup");
-const signin = require("./routes/login");
+const signin = require("./routes/signin");
 
 const games = require("./routes/games");
 const votes = require("./routes/votes");
+const admin = require("./routes/admin");
 const ranking = require("./routes/ranking");
 
 app.use("/signup", signup);
 app.use("/signin", signin);
 app.use("/games", games);
 app.use("/votes", votes);
+app.use("/admin", admin);
 app.use("/ranking", ranking);
 
 module.exports = app;

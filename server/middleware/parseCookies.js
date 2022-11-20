@@ -15,4 +15,12 @@ function parseCookies(request) {
   return list;
 }
 
-module.exports = { parseCookies };
+function parseJwt(token) {
+  return JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
+}
+
+function isEmpty(object) {
+  return Object.keys(object).length === 0;
+}
+
+module.exports = { parseCookies,parseJwt,isEmpty };
