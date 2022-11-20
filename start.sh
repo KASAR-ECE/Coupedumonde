@@ -11,7 +11,7 @@ then
     echo $var >> /config/secret
 fi
 
-cp /config/secret ./usr/src/api/server
+cp /config/secret ./
     
 
 
