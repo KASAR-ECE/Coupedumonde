@@ -16,6 +16,7 @@ export default function votePage({ token }) {
   const { username, signIn, admin, newadmin } = useContext(Context);
 
   useEffect(() => {
+    console.log(countryFlagEmoji.data)
     //define url if localhost for dev or
     let url = "";
     let tokenUsername = null;
