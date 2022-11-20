@@ -89,13 +89,13 @@ export default function votePage({ token }) {
       {dataGames ? (
         dataGames.map((match, index) => {
           return (
-            <div className="p-2 inline" key={index}>
+            <div className="p-2 inline" key={match.match_id}>
               <VoteCards
                 match={match}
-                key={index}
+                key={match.match_id}
                 dataVote={
                   dataVotes
-                    ? dataVotes.filter((vote) => vote.game_ID == index + 1)
+                    ? dataVotes.filter((vote) => vote.game_ID == match.match_id)
                     : []
                 }
               />

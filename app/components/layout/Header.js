@@ -6,7 +6,7 @@ export default function Navbar({ token }) {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const { username, score, admin } = useContext(Context);
   var phrase = "";
-  if (username != null) {
+  if (score != null) {
     phrase = "Your score :" + score;
   }
 
