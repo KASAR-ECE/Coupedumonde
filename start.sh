@@ -10,12 +10,11 @@ then
     var=$(node generatesalt.js)
     echo $var >> /config/secret
 fi
+
+
+cp /config/secret ./
+
     
 
 
 yarn dev
-
- 
- 
-
-
