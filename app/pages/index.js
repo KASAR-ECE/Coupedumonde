@@ -7,7 +7,7 @@ import cookie from "cookie";
 import getScore from "../context/getScore";
 
 export default function Home({ token }) {
-  const { username, signIn, newadmin } = useContext(UserContextProvider);
+  const { username, signIn, admin, newadmin } = useContext(UserContextProvider);
 
   useEffect(() => {
     let tokenUsername = null;

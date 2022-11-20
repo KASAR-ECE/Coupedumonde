@@ -4,7 +4,7 @@ import { useContext } from "react";
 
 export default function Navbar({ token }) {
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const { username, score } = useContext(Context);
+  const { username, score, admin } = useContext(Context);
   var phrase = "";
   if (username != null) {
     phrase = "Your score " + username + " : " + score;
