@@ -25,6 +25,9 @@ module.exports = {
         valide: "#98FB98",
       },
     },
+    fontFamily: {
+      font1: ["Comfortaa", "cursive"],
+    }
   },
   plugins: [],
 };
