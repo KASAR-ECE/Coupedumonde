@@ -47,7 +47,7 @@ router.post("/", async (req, res) => {
         score: result[0].score,
       };
 
-      results = JSON.parse(JSON.stringify(result))
+      const results = JSON.parse(JSON.stringify(result))
       // console.log(results[0].is_admin)
       let token
       if (results[0].is_admin == 1) {
