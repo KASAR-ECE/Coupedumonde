@@ -11,7 +11,9 @@ then
     echo $var >> /config/secret
 fi
 
+
 cp /config/secret ./
+
     
 
 
