@@ -13,7 +13,7 @@ export default function Home() {
           <div className="bg-kasar m-auto">
             <h1 className="text-center text-6xl">Les pronostics de Kasar.AI</h1>
             <br></br>
-            <img  style={{width: 50, height: 50}}  resizeMode={'cover'} src={require('.//../../app/public/android-chrome-512x512.png')} />
+            <img style={{width: 50, height: 50}} resizeMode={'cover'} src={require('.//../../app/public/android-chrome-512x512.png')} />
           </div>
         </div>
       </main>

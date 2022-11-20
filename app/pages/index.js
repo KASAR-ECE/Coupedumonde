@@ -4,6 +4,7 @@ import jwt_decode from "jwt-decode";
 import UserContextProvider from "../context/UserContext";
 import { useContext } from "react";
 import cookie from "cookie";
+import logo from './/../../BDS.png';
 
 export default function Home({ token }) {
   if (typeof token !== "undefined") {
@@ -22,8 +23,7 @@ export default function Home({ token }) {
           <div>
             <h1 className="font-medium leading-tight text-5xl mt-0 mb-2 text-violet-900 text-center">BDS X KASAR</h1>
             <h2 className="font-medium leading-tight text-5xl mt-0 mb-2 text-violet-900 text-center">WORLD CUP QATAR 2022</h2>
-            <img src=".. /..Kasar.png" className="max-w-full h-auto" alt="..." />
-
+            <img src= {logo} alt="image"/>
           </div>
        
       </main>
