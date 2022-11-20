@@ -17,10 +17,4 @@ cp /config/secret ./
     
 
 
-nodemon server.js
-
-
- 
- 
-
-
+yarn dev

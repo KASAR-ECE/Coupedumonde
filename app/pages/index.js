@@ -5,6 +5,7 @@ import UserContextProvider from "../context/UserContext";
 import { useContext, useEffect } from "react";
 import cookie from "cookie";
 import getScore from "../context/getScore";
+import logo from './/../../BDS.png';
 
 export default function Home({ token }) {
   const { username, signIn, admin, newadmin } = useContext(UserContextProvider);
@@ -54,11 +55,13 @@ export default function Home({ token }) {
         <title>Kasar</title>
       </Head>
       <main>
-        <div className="flex h-full">
-          <div className="bg-kasar2 m-auto">
-            <h1 className="text-center text-6xl">Welcome on our website ! {admin}</h1>
+       
+          <div>
+            <h1 className="font-medium leading-tight text-5xl mt-0 mb-2 text-violet-900 text-center">BDS X KASAR</h1>
+            <h2 className="font-medium leading-tight text-5xl mt-0 mb-2 text-violet-900 text-center">WORLD CUP QATAR 2022</h2>
+            <img src= {logo} alt="image"/>
           </div>
-        </div>
+       
       </main>
     </div>
   );
