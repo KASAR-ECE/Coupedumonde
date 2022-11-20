@@ -7,12 +7,12 @@ import Image from "next/image"
 import Link from "next/link";
 import cookie from "cookie";
 import getScore from "../context/getScore";
-import BDS from '../../BDS.png';
-import Kasar from '../../Kasar.png';
-import RulesImg from "../../rules.jpg"
-import VoteImg from "../../vote.jpg"
-import RankingImg from "../../ranking.webp"
-import OurAiImg from "../../our-ai.jpg"
+import BDS from './../img/BDS.png';
+import Kasar from './../img/Kasar.png';
+import RulesImg from "./../img/rules.jpg"
+import VoteImg from "./../img/vote.jpg"
+import RankingImg from "./../img/ranking.webp"
+import OurAiImg from "./../img/our-ai.jpg"
 
 export default function Home({ token }) {
   const { username, signIn, admin, newadmin } = useContext(Context);

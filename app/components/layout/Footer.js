@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import Kasar from "../../../Kasar.png"
+import Kasar from "../img/Kasar.png"
 
 export default function Footer({ }) {
   return (
