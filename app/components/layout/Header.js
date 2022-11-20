@@ -7,7 +7,7 @@ export default function Navbar({ token }) {
   const { username, score, admin } = useContext(Context);
   var phrase = "";
   if (username != null) {
-    phrase = "Your score " + username + " : " + score;
+    phrase = "Your score :" + score;
   }
 
 
@@ -109,7 +109,7 @@ export default function Navbar({ token }) {
                   <a href="/ranking">Ranking</a>
                 </i>
               </div>
-              
+
             </li>
             <li className="nav-item">
               <div
@@ -119,7 +119,7 @@ export default function Navbar({ token }) {
                   <a href="/our-ai">OUR AI</a>
                 </i>
               </div>
-              
+
             </li>
             <li className="nav-item">
               <div

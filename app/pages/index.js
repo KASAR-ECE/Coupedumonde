@@ -62,10 +62,10 @@ export default function Home({ token }) {
       <main>
         <div className="flex h-full">
           <div className="m-auto">
-            <h2 className="text-center text-2xl">Bienvenue sur notre site</h2>
-            <div className="flex">
-              <Image src={BDS} className="bg-kasar1 w-32 h-32 rounded-[50%]" alt="BDS Logo" />
+            <h2 className="text-center text-2xl">Qatar World Cup 2022</h2>
+            <div className="flex flex-wrap items-center p-2 m-auto">
               <Image src={Kasar} className="bg-kasar1 w-32 h-32 rounded-[50%]" alt="Kasar-ai Logo" />
+              <Image src={BDS} className="bg-kasar1 w-32 h-32 rounded-[50%] p-1" alt="BDS Logo" />
             </div>
             <h1 className="text-center text-5xl">KASAR x BDS</h1>
           </div>
