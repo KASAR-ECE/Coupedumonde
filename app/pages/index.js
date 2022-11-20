@@ -22,7 +22,7 @@ export default function Home({ token }) {
           <div>
             <h1 className="font-medium leading-tight text-5xl mt-0 mb-2 text-violet-900 text-center">BDS X KASAR</h1>
             <h2 className="font-medium leading-tight text-5xl mt-0 mb-2 text-violet-900 text-center">WORLD CUP QATAR 2022</h2>
-            <img src="Kasar.png"alt="Kasar"/>
+            <img src=".. /..Kasar.png" className="max-w-full h-auto" alt="..." />
 
           </div>
        
