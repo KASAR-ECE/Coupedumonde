@@ -84,15 +84,15 @@ export default function Home({ token }) {
           </div>
         </div>
         <div className="my-4 w-auto h-auto grid grid-cols-2 gap-4">
-          {pages.map(page => {
-
-              <div className="rounded-2xl text-center ">
+          {pages.map((page, index) => {
+            return (
+              <div key={index} className="rounded-2xl text-center ">
                 <Link href={page.link}>
                   <Image src={page.img} className="rounded-t-2xl  w-full" alt={page.title} />
                   <h1 className="bg-kasar2 rounded-b-2xl font-font1 font-bold text-white text-xl">{page.title}</h1>
                 </Link>
               </div>
-
+            )
           })}
         </div>
       </main>
