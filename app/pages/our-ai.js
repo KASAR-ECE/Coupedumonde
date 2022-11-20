@@ -2,8 +2,8 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import React from 'react';
 import Image from "next/image";
-import PredictAi from "../../8EME.png"
-import PredictAiFin from "../../fin.png"
+import PredictAi from "./../img/8EME.png"
+import PredictAiFin from "./../img/fin.png"
 
 export default function Home() {
   return (
