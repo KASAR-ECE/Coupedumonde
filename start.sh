@@ -15,7 +15,7 @@ cp /config/secret ./usr/src/api/server
     
 
 
-node /usr/src/api/server.js
+nodemon server.js
 
 
  
