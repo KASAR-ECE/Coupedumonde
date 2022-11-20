@@ -7,7 +7,7 @@ import cookie from "cookie";
 import getScore from "../context/getScore";
 
 export default function Home({ token }) {
-  const { username, signIn } = useContext(UserContextProvider);
+  const { username, signIn, newadmin } = useContext(UserContextProvider);
 
   useEffect(() => {
     let tokenUsername = null;
@@ -15,6 +15,10 @@ export default function Home({ token }) {
       //page reaload -> restore username from cookie and fetch the score from api
       var decode = jwt_decode(token);
       tokenUsername = decode.username;
+      if (decode.is_admin == true) {
+        console.log("test " + decode.is_admin)
+        newadmin();
+      }
     }
 
     const dataFetch = async () => {
@@ -43,6 +47,7 @@ export default function Home({ token }) {
     dataFetch();
   }, [token])
 
+
   return (
     <div className={styles.container}>
       <Head>
@@ -51,7 +56,7 @@ export default function Home({ token }) {
       <main>
         <div className="flex h-full">
           <div className="bg-kasar2 m-auto">
-            <h1 className="text-center text-6xl">Welcome on our website !</h1>
+            <h1 className="text-center text-6xl">Welcome on our website ! {admin}</h1>
           </div>
         </div>
       </main>

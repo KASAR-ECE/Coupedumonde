@@ -13,7 +13,7 @@ export default function votePage({ token }) {
   const [dataGamesError, setDataGamesError] = useState(null);
   const [dataVotes, setDataVotes] = useState(null);
   const [dataVotesError, setDataVotesError] = useState(null);
-  const { username, signIn } = useContext(Context);
+  const { username, signIn, admin, newadmin } = useContext(Context);
 
   useEffect(() => {
     //define url if localhost for dev or
@@ -23,6 +23,10 @@ export default function votePage({ token }) {
       //page reaload -> restore username from cookie and fetch the score from api
       var decode = jwt_decode(token);
       tokenUsername = decode.username;
+      if (decode.is_admin == true) {
+        console.log("test " + decode.is_admin)
+        newadmin();
+      }
     }
 
     if (

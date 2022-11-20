@@ -10,6 +10,7 @@ export default function Navbar({ token }) {
     phrase = "Your score " + username + " : " + score;
   }
 
+
   return (
     <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-kasar1 mb-3">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
@@ -18,7 +19,7 @@ export default function Navbar({ token }) {
             className="text-xl font-bold leading-relaxed inline-block mr-4 py-1 whitespace-nowrap uppercase text-kasar3"
             href="/"
           >
-            Home
+            Home {admin}
           </a>
           <p className="text-kasar3 leading-snug inline-block mr-4 my-auto py-1 whitespace-nowrap  md:block">
             {phrase}
@@ -61,6 +62,23 @@ export default function Navbar({ token }) {
           id="example-navbar-danger"
         >
           <ul className="flex flex-col sm:flex-row list-none sm:ml-auto">
+
+            {
+              admin ? (
+                <li className="nav-item">
+                  <div
+                    className="px-3 py-2 flex items-center  uppercase font-bold leading-snug text-kasar3 hover:opacity-75"
+                    href="#pablo"
+                  >
+                    <i className="fab fa-pinterest text-lg leading-lg text-kasar3 opacity-80 ">
+                      <a href="/admin">Admin</a>
+                    </i>
+                  </div>
+                </li>
+              ) : (
+                ""
+              )
+            }
             <li className="nav-item">
               <div
                 className="px-3 py-2 flex items-center  uppercase font-bold leading-snug text-kasar3 hover:opacity-75"
