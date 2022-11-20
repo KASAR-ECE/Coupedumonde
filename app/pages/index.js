@@ -23,7 +23,6 @@ export default function Home({ token }) {
       //page reaload -> restore username from cookie and fetch the score from api
       var decode = jwt_decode(token);
       tokenUsername = decode.username;
-      console.log(decode)
       if (decode.is_admin == true) {
         newadmin();
       }
