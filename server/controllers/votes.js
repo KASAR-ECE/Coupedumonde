@@ -1,5 +1,6 @@
 var connection = require("../db");
 const { parseCookies } = require("../middleware/parseCookies");
+const jwt = require("jsonwebtoken")
 
 module.exports = {
   getAll: (callback) => {
@@ -45,17 +46,54 @@ module.exports = {
   createVote: (req, callback) => {
     var user;
     voteData = req.body;
-    const token = parseCookies(req);
+    var respObj;
 
-    if (isEmpty(token)) {
-      let err = {
-        message: "You are not logged in",
+
+    const cookie = parseCookies(req);
+    if(isEmpty(cookie)){
+      respObj = {
+        error: true,
+        msg: "You are not logged in",
       };
-      return callback(err, null);
-    } else {
-      user = parseJwt(token.token);
-      user = user.username;
+      return callback(respObj, null);
+
     }
+    
+    var token
+    try {
+  
+      token = jwt.verify(cookie.token, process.env.JWT_SECRET)
+    } catch (e) {
+      if (e instanceof jwt.JsonWebTokenError) {
+        respObj = {
+          error: true,
+          msg: "Wrong token",
+        };
+  
+        return callback(respObj, null);
+      }
+  
+      return resp.status(400).end()
+    }
+    if(isEmpty(token)){
+      respObj = {
+        status: "error",
+        msg: "You are not logged in",
+      };
+      return callback(respObj, null);
+
+    }
+  
+
+    if(typeof(token.username) === "undefined"){
+      respObj = {
+        status: "error",
+        msg: "You are not logged in",
+      };
+      return callback(respObj, null);
+
+    }
+    user = token.username
 
     if (
       !voteData.username ||

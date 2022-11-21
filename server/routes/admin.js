@@ -23,7 +23,18 @@ router.post("/addmatch", async (req, res) => {
     res.status(403).json(respObj);
     return;
   }
-  var token = parseJwt(cookie.token)
+  var token
+	try {
+
+		token = jwt.verify(cookie.token, process.env.JWT_SECRET)
+	} catch (e) {
+		if (e instanceof jwt.JsonWebTokenError) {
+
+			return res.status(401).end()
+		}
+
+		return res.status(400).end()
+	}
 
   if(isEmpty(token)){
     respObj = {
@@ -129,6 +140,25 @@ router.post("/addmatch", async (req, res) => {
     res.status(403).json(data);
     return;
   }
+  var sql = "SELECT is_admin FROM user WHERE username=? ";
+
+  connection.query(sql, token.username, (err, result, fields) => {
+    if (err) throw err;
+    results = JSON.parse(JSON.stringify(result))
+    console.log(results[0])
+    if(results[0].is_admin==0){
+      console.log("ERROR : You are not admin");
+    data = {
+      error: true,
+      message: "You are not admin",
+    };
+    res.status(403).json(data);
+    return;
+    }
+    res.status(200).json({ msg: results, status: "success" })
+
+  });
+
 
   var sql = "INSERT INTO `games` ( `round_number`, `date`, `location`, `home_team`, `away_team`, `group`, `home_team_score`, `away_team_score`) VALUES ( '2', ?, 'test', ?, ?, '2', NULL, NULL); ";
   const utcStr = new Date()
@@ -165,7 +195,19 @@ router.get("/getusers", async (req, res) => {
     res.status(403).json(respObj);
     return;
   }
-  var token = parseJwt(cookie.token)
+  
+  var token
+	try {
+
+		token = jwt.verify(cookie.token, process.env.JWT_SECRET)
+	} catch (e) {
+		if (e instanceof jwt.JsonWebTokenError) {
+
+			return res.status(401).end()
+		}
+
+		return res.status(400).end()
+	}
 
   if(isEmpty(token)){
     respObj = {
@@ -218,7 +260,18 @@ router.post("/deleteuser", async (req, res) => {
     res.status(403).json(respObj);
     return;
   }
-  var token = parseJwt(cookie.token)
+  var token
+	try {
+
+		token = jwt.verify(cookie.token, process.env.JWT_SECRET)
+	} catch (e) {
+		if (e instanceof jwt.JsonWebTokenError) {
+
+			return res.status(401).end()
+		}
+
+		return res.status(400).end()
+	}
 
   if(isEmpty(token)){
     respObj = {
@@ -254,6 +307,24 @@ router.post("/deleteuser", async (req, res) => {
     res.status(403).json(data);
     return;
   }
+  var sql = "SELECT is_admin FROM user WHERE username=? ";
+
+  connection.query(sql, token.username, (err, result, fields) => {
+    if (err) throw err;
+    results = JSON.parse(JSON.stringify(result))
+    console.log(results[0])
+    if(results[0].is_admin==0){
+      console.log("ERROR : You are not admin");
+    data = {
+      error: true,
+      message: "You are not admin",
+    };
+    res.status(403).json(data);
+    return;
+    }
+    res.status(200).json({ msg: results, status: "success" })
+
+  });
 
 
   var sql = "SELECT is_admin FROM user WHERE username=? ";
@@ -262,7 +333,7 @@ router.post("/deleteuser", async (req, res) => {
     if (err) throw err;
     results = JSON.parse(JSON.stringify(result))
     console.log(results[0])
-    if(results[0].is_admin==0){
+    if(results[0].is_admin==1){
       console.log("ERROR : Can't delete admin");
     data = {
       error: true,
@@ -300,7 +371,18 @@ router.post("/modifymatch", async (req, res) => {
     res.status(403).json(respObj);
     return;
   }
-  var token = parseJwt(cookie.token)
+  var token
+	try {
+
+		token = jwt.verify(cookie.token, process.env.JWT_SECRET)
+	} catch (e) {
+		if (e instanceof jwt.JsonWebTokenError) {
+
+			return res.status(401).end()
+		}
+
+		return res.status(400).end()
+	}
 
   if(isEmpty(token)){
     respObj = {
@@ -414,7 +496,25 @@ router.post("/modifymatch", async (req, res) => {
     res.status(403).json(data);
     return;
   }
-  console.log("oui")
+  var sql = "SELECT is_admin FROM user WHERE username=? ";
+
+  connection.query(sql, token.username, (err, result, fields) => {
+    if (err) throw err;
+    results = JSON.parse(JSON.stringify(result))
+    console.log(results[0])
+    if(results[0].is_admin==0){
+      console.log("ERROR : You are not admin");
+    data = {
+      error: true,
+      message: "You are not admin",
+    };
+    res.status(403).json(data);
+    return;
+    }
+    res.status(200).json({ msg: results, status: "success" })
+
+  });
+
 
   var sql = "UPDATE `games` SET  home_team=?, away_team=?, home_team_score=?, away_team_score=? WHERE match_id=?";
 

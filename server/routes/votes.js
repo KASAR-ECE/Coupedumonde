@@ -1,29 +1,59 @@
 const express = require("express");
 const votesController = require("../controllers/votes");
 const { parseCookies } = require("../middleware/parseCookies");
+const jwt = require("jsonwebtoken")
 
 const votesRouter = express.Router();
 
 votesRouter
   .get("/", (req, resp) => {
     // resp.writeHead(200, { 'Content-Type': 'text/json' })
-    var user;
-    voteData = req.body;
-    const token = parseCookies(req);
-    let err = {
-      message: "You are not logged in",
-    };
-    if (isEmpty(token) || typeof(token.token)==="undefined") {
+    const cookie = parseCookies(req);
+    if(isEmpty(cookie)){
+      respObj = {
+        error: true,
+        msg: "You are not logged in",
+      };
+      resp.status(403).json(respObj);
+      return;
+    }
+    
+    var token
+    try {
+  
+      token = jwt.verify(cookie.token, process.env.JWT_SECRET)
+    } catch (e) {
+      if (e instanceof jwt.JsonWebTokenError) {
+        respObj = {
+          error: true,
+          msg: "Wrong token",
+        };
+  
+        return resp.status(401).json(respObj);
+      }
+  
+      return resp.status(400).end()
+    }
+    if(isEmpty(token)){
       respObj = {
         status: "error",
-        msg: err.message,
+        msg: "You are not logged in",
       };
-      return resp.status(403).json(respObj);
-    } else {
-      user = parseJwt(token.token);
-      user = user.username;
+      resp.status(403).json(respObj);
+      return;
     }
-    const userID = req.params.userID;
+  
+
+    if(typeof(token.username) === "undefined"){
+      respObj = {
+        status: "error",
+        msg: "You are not logged in",
+      };
+      resp.status(403).json(respObj);
+      return;
+    }
+    user = token.username
+
     votesController.getAllVotesUser(user, (err, res) => {
       let respObj;
       if (err) {
