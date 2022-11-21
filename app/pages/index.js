@@ -7,12 +7,12 @@ import Image from "next/image"
 import Link from "next/link";
 import cookie from "cookie";
 import getScore from "../context/getScore";
-import BDS from '../../BDS.png';
-import Kasar from '../../Kasar.png';
-import RulesImg from "../../rules.jpg"
-import VoteImg from "../../vote.jpg"
-import RankingImg from "../../ranking.webp"
-import OurAiImg from "../../our-ai.jpg"
+import BDS from './../img/BDS.png';
+import Kasar from './../img/Kasar.png';
+import RulesImg from "./../img/rules.jpg"
+import VoteImg from "./../img/vote.jpg"
+import RankingImg from "./../img/ranking.webp"
+import OurAiImg from "./../img/our-ai.jpg"
 
 export default function Home({ token }) {
   const { username, signIn, admin, newadmin } = useContext(Context);
@@ -23,7 +23,6 @@ export default function Home({ token }) {
       //page reaload -> restore username from cookie and fetch the score from api
       var decode = jwt_decode(token);
       tokenUsername = decode.username;
-      console.log(decode)
       if (decode.is_admin == true) {
         newadmin();
       }
@@ -84,9 +83,9 @@ export default function Home({ token }) {
           </div>
         </div>
         <div className="my-4 w-auto h-auto grid grid-cols-2 gap-4">
-          {pages.map(page => {
+          {pages.map((page, index) => {
             return (
-              <div className="rounded-2xl text-center ">
+              <div key={index} className="rounded-2xl text-center ">
                 <Link href={page.link}>
                   <Image src={page.img} className="rounded-t-2xl  w-full" alt={page.title} />
                   <h1 className="bg-kasar2 rounded-b-2xl font-font1 font-bold text-white text-xl">{page.title}</h1>

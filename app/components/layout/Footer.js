@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import Kasar from "../../../Kasar.png"
+import Kasar from "./../../img/Kasar.png"
 
 export default function Footer({ }) {
   return (
@@ -10,7 +10,7 @@ export default function Footer({ }) {
           Powered by KASAR
         </div>
         <Link href="https://www.instagram.com/kasar.ai/">
-          <Image src={Kasar} className=" ml-0 w-12 h-12 rounded-[50%] border-kasar5 border-2" alt="Kasar-ai Logo" />
+          <Image src={Kasar} className=" ml-2 w-12 h-12 rounded-[50%] border-kasar5 border-2" alt="Kasar-ai Logo" />
         </Link>
       </div>
     </footer>

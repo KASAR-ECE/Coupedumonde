@@ -16,6 +16,7 @@ export default function votePage({ token }) {
   const { username, signIn, admin, newadmin } = useContext(Context);
 
   useEffect(() => {
+    console.log(countryFlagEmoji.data)
     //define url if localhost for dev or
     let url = "";
     let tokenUsername = null;
@@ -89,13 +90,13 @@ export default function votePage({ token }) {
       {dataGames ? (
         dataGames.map((match, index) => {
           return (
-            <div className="p-2 inline" key={index}>
+            <div className="p-2 inline" key={match.match_id}>
               <VoteCards
                 match={match}
-                key={index}
+                key={match.match_id}
                 dataVote={
                   dataVotes
-                    ? dataVotes.filter((vote) => vote.game_ID == index + 1)
+                    ? dataVotes.filter((vote) => vote.game_ID == match.match_id)
                     : []
                 }
               />
