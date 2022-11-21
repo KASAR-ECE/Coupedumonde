@@ -216,16 +216,12 @@ const VoteCards = ({ match, dataVote }) => {
         {match.home_team}
       </h5>
       <div className="flex flex-wrap text-center items-center w-fit m-auto">
-        {/* {countryFlagEmoji.list.filter(item => item.name === match.home_team.toString())[0] ? //EMOJI FLAG
-          <ReactCountryFlag countryCode={countryFlagEmoji.list.filter(item => item.name === match.home_team.toString())[0].code} svg /> : null} */}
         <CountryFlag teamName={match.home_team} />
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
           {" "}
           - VS -{" "}
         </h5>
         <CountryFlag teamName={match.away_team} />
-        {/* {countryFlagEmoji.list.filter(item => item.name === match.away_team.toString())[0] ? //EMOJI FLAG
-          <ReactCountryFlag countryCode={countryFlagEmoji.list.filter(item => item.name === match.away_team.toString())[0].code} svg /> : null} */}
       </div>
       <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
         {match.away_team}

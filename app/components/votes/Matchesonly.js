@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import CountryFlag from "./CountryFlag";
 
 const Matchesonly = ({ match, dataVote }) => {
   const [isDraw, setIsDraw] = useState(true);
@@ -52,10 +53,14 @@ const Matchesonly = ({ match, dataVote }) => {
           <h5 className="flex-1 mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%] m-auto">
             {match.home_team}
           </h5>
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
-            {" "}
-            - VS -{" "}
-          </h5>
+          <div className="flex flex-wrap text-center items-center w-fit m-auto">
+            <CountryFlag teamName={match.home_team} />
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
+              {" "}
+              - VS -{" "}
+            </h5>
+            <CountryFlag teamName={match.away_team} />
+          </div>
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
             {match.away_team}
           </h5>
