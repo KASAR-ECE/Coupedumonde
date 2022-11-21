@@ -10,7 +10,6 @@ export default function Navbar({ token }) {
     phrase = "Your score :" + score;
   }
 
-
   return (
     <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-kasar1 mb-3">
       <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
