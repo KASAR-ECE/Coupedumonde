@@ -181,7 +181,7 @@ const VoteCards = ({ match, dataVote }) => {
     "Samedi",
   ];
   const dayString = jourSemaine[matchDate.getDay()];
-  const hour = matchDate.getHours().toString();
+  const hour = matchDate.getHours();
   const minutes =
     (matchDate.getMinutes() < 10 ? "0" : "") + matchDate.getMinutes();
 
