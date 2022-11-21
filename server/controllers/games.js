@@ -25,7 +25,7 @@ module.exports = {
       "." +
       "000000" +
       "'";
-    requete = "SELECT * FROM games WHERE date > " + today;
+    requete = "SELECT * FROM games INNER JOIN cotes ON games.match_id = cotes.id WHERE date > " + today;
     // console.log(today);
     connection.query(requete, function (err, result, fields) {
       if (err) {

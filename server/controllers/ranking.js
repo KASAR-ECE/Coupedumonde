@@ -1,8 +1,9 @@
 var connection = require("../db");
+const { get } = require("../routes/ranking");
 
 module.exports = {
   getAll: (callback) => {
-    requete = "SELECT username, score from user ORDER BY score desc"
+    requete = "SELECT username, score from user ORDER BY score desc";
     connection.query(requete, function (err, result, fields) {
       if (err) {
         return callback(err, null);
@@ -14,8 +15,9 @@ module.exports = {
       }
     });
   },
-  getScoreUser: (username, callback) => { //return the score of the user
-    const sql = "SELECT score from user where username = ?"
+  getScoreUser: (username, callback) => {
+    //return the score of the user
+    const sql = "SELECT score from user where username = ?";
     connection.query(sql, username, function (err, result, fields) {
       if (err) {
         return callback(err, null);
@@ -26,8 +28,5 @@ module.exports = {
         return callback(null, result);
       }
     });
-  }
+  },
 };
-
-
-

@@ -2,8 +2,8 @@ const ButtonQuickVote = ({
   equipeName = "default",
   quickScoreVote = false,
   state,
-  setQuickVote = () => {},
-  setScoreVote = () => {},
+  setQuickVote = () => { },
+  setScoreVote = () => { },
 }) => {
   const quickVoteHandler = () => {
     setQuickVote();
@@ -38,7 +38,7 @@ const ButtonQuickVote = ({
       ) : (
         <input
           onChange={scoreVoteHandler}
-          className={`shadow appearance-none border rounded w-16 py-2 px-3 ${color}
+          className={`shadow appearance-none border rounded w-16 py-2 px-3 my-2 ${color}
                             text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
           id="username"
           type="number"
