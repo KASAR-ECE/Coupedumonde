@@ -31,6 +31,8 @@ RUN mkdir /config
 RUN apk add nginx
 COPY nginx/nginx.conf "/etc/nginx/nginx.conf"
 
+ENV TZ=Europe/Paris
+
 COPY --from=builder /usr/src/app/next.config.js ./
 COPY --from=builder /usr/src/app/public ./public
 COPY --from=builder /usr/src/app/.next ./.next
