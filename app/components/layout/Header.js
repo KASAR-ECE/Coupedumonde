@@ -6,10 +6,9 @@ export default function Navbar({ token }) {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const { username, score, admin } = useContext(Context);
   var phrase = "";
-  if (username != null) {
+  if (score != null) {
     phrase = "Your score :" + score;
   }
-
 
   return (
     <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-kasar1 mb-3">
