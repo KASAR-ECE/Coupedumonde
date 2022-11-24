@@ -51,6 +51,18 @@ const RankingPage = ({ token }) => {
     dataFetch();
   }, []);
 
+
+  function place(index){
+    if(index==1)
+    return  "\uD83E\uDD47"
+    if(index==2)
+    return  "	\uD83E\uDD48"
+    if(index==3)
+    return "\uD83E\uDD49"
+
+    return index
+  }
+
   return (
     <div>
       <Head> <title>Ranking</title> </Head>
@@ -82,7 +94,7 @@ const RankingPage = ({ token }) => {
                       <tbody key={index}>
                         <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {index + 1}
+                            {place(index + 1)}
                           </td>
                           <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                             <p>{rank.username}</p>
