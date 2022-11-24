@@ -153,12 +153,23 @@ const VoteCards = ({ match, dataVote }) => {
     );
   };
 
+  let colorCoteHomeTeam = "text-white"
+  if (votes[0].win) colorCoteHomeTeam = "text-win"
+  let colorCoteAwayTeam = "text-white"
+  if (votes[1].win) colorCoteAwayTeam = "text-win"
+
   let color = "bg-kasar3";
+  let colorDrawCote = "text-white"
   if (votes[0].draw || votes[0].draw === "true") {
     color = "bg-draw text-white";
+    colorCoteHomeTeam = "text-white"
+    colorCoteAwayTeam = "text-white"
+    colorDrawCote = "text-draw"
   } else {
     color = "bg-white";
+    colorDrawCote = "text-white"
   }
+
   const matchDate = new Date(match.date);
   const monthNumber = matchDate.getMonth();
   const dayNumber = matchDate.getDate();
@@ -205,21 +216,34 @@ const VoteCards = ({ match, dataVote }) => {
         {match.home_team}
       </h5>
       <div className="flex flex-wrap text-center items-center w-fit m-auto">
-        {/* {countryFlagEmoji.list.filter(item => item.name === match.home_team.toString())[0] ? //EMOJI FLAG
-          <ReactCountryFlag countryCode={countryFlagEmoji.list.filter(item => item.name === match.home_team.toString())[0].code} svg /> : null} */}
         <CountryFlag teamName={match.home_team} />
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
           {" "}
           - VS -{" "}
         </h5>
         <CountryFlag teamName={match.away_team} />
-        {/* {countryFlagEmoji.list.filter(item => item.name === match.away_team.toString())[0] ? //EMOJI FLAG
-          <ReactCountryFlag countryCode={countryFlagEmoji.list.filter(item => item.name === match.away_team.toString())[0].code} svg /> : null} */}
       </div>
       <h5 className="mb-2 text-2xl font-bold tracking-tight text-white max-w-[100%]">
         {match.away_team}
       </h5>
       <ControlButton> {showQuickVote ? showQuickVoteButton : hideQuickVoteButton} </ControlButton>
+      <div className="bg-kasar2 bg-opacity-40 rounded-3xl">
+        <h4 className="p-2 text-2xl  font-bold tracking-tight underline text-white max-w-[100%]">Cotes</h4>
+        <div className="flex justify-between my-auto">
+          <div className="mx-4">
+            <h5 className={`p-2 text-2xl ${colorCoteHomeTeam} font-bold tracking-tight text-white max-w-[100%]`}>{match.cote_home}</h5>
+            <p className="text-white font-font1 text-sm">victoire</p>
+          </div>
+          <div className="mx-4">
+            <h5 className={`p-2 text-2xl ${colorDrawCote} font-bold tracking-tight text-white max-w-[100%]`}>{match.egalite}</h5>
+            <p className="text-white font-font1 text-sm">égalité</p>
+          </div>
+          <div className="mx-4">
+            <h5 className={`p-2 text-2xl ${colorCoteAwayTeam} font-bold tracking-tight text-white max-w-[100%]`}>{match.cote_away}</h5>
+            <p className="text-white font-font1 text-sm">victoire</p>
+          </div>
+        </div>
+      </div>
       <div className="flex justify-between my-auto">
         <ButtonQuickVote
           equipeName={match.home_team}
